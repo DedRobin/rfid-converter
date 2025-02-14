@@ -2,8 +2,8 @@ import { useState } from 'react';
 import ConverterInput from './Input';
 import { ConvertTo } from '../../types/App';
 import ConverterOutput from './Output';
-import './style.css';
 import { convert } from './services';
+import './style.css';
 
 export default function Converter() {
   const [fields, setFields] = useState({

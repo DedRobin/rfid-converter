@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 import { ConverterType } from '../../../types/App';
 import { isConverterType } from './services';
 import { ConverterInputProps } from '../../../types/Converter';
@@ -17,15 +17,27 @@ export default function ConverterInput({
     convertTo({ value, type });
   };
 
+  const onSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target;
+    if (isConverterType(value)) setType(value);
+  };
+
+  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    if (type === 'text') {
+      if (value.length === 3) {
+        setValue((prev) => {
+          if (prev[prev.length - 1] === ',') return value.slice(0, 2);
+          else return value + ',';
+        });
+      } else setValue(value);
+    }
+    setValue(value);
+  };
+
   return (
     <div className={className}>
-      <select
-        className={`${className}__select`}
-        onChange={(event) => {
-          const { value } = event.target;
-          if (isConverterType(value)) setType(value);
-        }}
-      >
+      <select className={`${className}__select`} onChange={onSelectChange}>
         <option className="select__option" value="text">
           Text
         </option>
@@ -40,7 +52,7 @@ export default function ConverterInput({
         id={labelName}
         className={`${className}__input`}
         value={value}
-        onChange={(event) => setValue(event.target.value)}
+        onChange={onInputChange}
       />
       <button className="field__button" onClick={onClick} type="button">
         Convert
