@@ -3,6 +3,7 @@ import ConverterInput from './Input';
 import { ConvertTo } from '../../types/App';
 import ConverterOutput from './Output';
 import './style.css';
+import { convert } from './services';
 
 export default function Converter() {
   const [fields, setFields] = useState({
@@ -11,8 +12,22 @@ export default function Converter() {
     hex: '',
   });
   const convertTo: ConvertTo = ({ value, type }) => {
-    const newValue = [value, type].join(' ');
-    setFields({ ...fields, [type]: newValue });
+    if (type === 'text') {
+      console.log('convert from TEXT');
+
+      const dex = convert.fromTextToDex(value);
+      const hex = convert.fromTextToHex(value);
+      setFields({ ...fields, text: value, dex, hex });
+    } else if (type === 'dex') {
+      const hex = convert.fromDexToHex(value);
+      const text = convert.fromDexToText(value);
+
+      setFields({ ...fields, text, dex: value, hex });
+    } else if (type === 'hex') {
+      const dex = convert.fromHexToDex(value);
+      const text = convert.fromHexToText(value);
+      setFields({ ...fields, text, dex, hex: value });
+    }
   };
   return (
     <form className="converted-form">
