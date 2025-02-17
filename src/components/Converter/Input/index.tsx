@@ -14,8 +14,17 @@ export default function ConverterInput({
   convertTo,
 }: ConverterInputProps) {
   const className = useMemo(() => 'converter-input', []);
+  const templates = useMemo(
+    () => ({
+      text: '000,00000',
+      dex: '0000000000',
+      hex: '000000',
+    }),
+    []
+  );
 
   const [value, setValue] = useState('');
+  const [placeholder, setPlaceholder] = useState(templates.text);
   const [type, setType] = useState<ConverterType>('text');
 
   const onClick = () => {
@@ -23,9 +32,10 @@ export default function ConverterInput({
   };
 
   const onSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const { value } = event.target;
-    if (isConverterType(value)) {
-      setType(value);
+    const currentType = event.target.value;
+    if (isConverterType(currentType)) {
+      setType(currentType);
+      setPlaceholder(templates[currentType]);
       setValue('');
     }
   };
@@ -64,6 +74,7 @@ export default function ConverterInput({
         id={labelName}
         className={`${className}__input`}
         value={value}
+        placeholder={placeholder}
         onChange={onInputChange}
       />
       <button className="field__button" onClick={onClick} type="button">
