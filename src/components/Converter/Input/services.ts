@@ -16,7 +16,7 @@ const handleTextInput: InputHandler = (currentValue, setValue) => {
     const { length } = currentValue;
     const lastChar = currentValue.slice(-1);
 
-    if (!isNumber(lastChar)) return prevValue;
+    if (!isNumber(lastChar) && lastChar !== ',') return prevValue;
     if (length >= 10) return prevValue;
     if (length === 4) {
       return lastChar !== ','
