@@ -1,6 +1,11 @@
 import { ChangeEvent, useMemo, useState } from 'react';
 import { ConverterType } from '../../../types/App';
-import { handleTextInput, isConverterType } from './services';
+import {
+  handleDexInput,
+  handleHexInput,
+  handleTextInput,
+  isConverterType,
+} from './services';
 import { ConverterInputProps } from '../../../types/Converter';
 import './style.css';
 
@@ -19,7 +24,10 @@ export default function ConverterInput({
 
   const onSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
-    if (isConverterType(value)) setType(value);
+    if (isConverterType(value)) {
+      setType(value);
+      setValue('');
+    }
   };
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +37,10 @@ export default function ConverterInput({
         handleTextInput(value, setValue);
         break;
       case 'dex':
-        console.log('DEX handler');
+        handleDexInput(value, setValue);
         break;
       case 'hex':
-        console.log('HEX handler');
+        handleHexInput(value, setValue);
         break;
       default:
         setValue(value);
