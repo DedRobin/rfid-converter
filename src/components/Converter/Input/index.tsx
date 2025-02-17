@@ -1,6 +1,6 @@
 import { ChangeEvent, useMemo, useState } from 'react';
 import { ConverterType } from '../../../types/App';
-import { isConverterType } from './services';
+import { handleTextInput, isConverterType } from './services';
 import { ConverterInputProps } from '../../../types/Converter';
 import './style.css';
 
@@ -24,15 +24,19 @@ export default function ConverterInput({
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    if (type === 'text') {
-      if (value.length === 3) {
-        setValue((prev) => {
-          if (prev[prev.length - 1] === ',') return value.slice(0, 2);
-          else return value + ',';
-        });
-      } else setValue(value);
+    switch (type) {
+      case 'text':
+        handleTextInput(value, setValue);
+        break;
+      case 'dex':
+        console.log('DEX handler');
+        break;
+      case 'hex':
+        console.log('HEX handler');
+        break;
+      default:
+        setValue(value);
     }
-    setValue(value);
   };
 
   return (
