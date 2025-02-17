@@ -47,7 +47,7 @@ const handleHexInput: InputHandler = (currentValue, setValue) => {
     if (!isNumber(lastChar) && !isAlpha(lastChar)) return prevValue;
     if (length >= 7) return prevValue;
 
-    return currentValue;
+    return currentValue.toUpperCase();
   });
 };
 
