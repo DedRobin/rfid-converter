@@ -1,7 +1,44 @@
 .converter-output {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: start;
   gap: 10px;
+}
+
+.converter-output__text,
+.converter-output__dex,
+.converter-output__hex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  .converter-output__text-label,
+  .converter-output__dex-label,
+  .converter-output__hex-label {
+    border-right: 1px solid #ccc;
+    padding: 8px;
+  }
+
+  .converter-output__text-value,
+  .converter-output__dex-value,
+  .converter-output__hex-value {
+    flex-grow: 1;
+  }
+
+  .converter-output__text-copied,
+  .converter-output__dex-copied,
+  .converter-output__hex-copied {
+    border-left: 1px solid #ccc;
+    padding: 8px;
+  }
+}
+
+.converter-output__text-copied:hover,
+.converter-output__dex-copied:hover,
+.converter-output__hex-copied:hover {
+  transition: background-color 0.2s;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  color: black;
 }
