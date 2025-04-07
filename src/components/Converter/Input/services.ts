@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { ConverterType } from '../../../types/App';
-import { isAlpha, isNumber } from '../../../tools/character';
+import { isABCDIF, isNumber } from '../../../tools/character';
 
 type InputHandler = (
   value: string,
@@ -44,7 +44,7 @@ const handleHexInput: InputHandler = (currentValue, setValue) => {
     const { length } = currentValue;
     const lastChar = currentValue.slice(-1);
 
-    if (!isNumber(lastChar) && !isAlpha(lastChar)) return prevValue;
+    if (!isNumber(lastChar) && !isABCDIF(lastChar)) return prevValue;
     if (length >= 7) return prevValue;
 
     return currentValue.toUpperCase();
