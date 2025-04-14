@@ -27,6 +27,7 @@ const handleTextInput: InputHandler = (currentValue, setValue) => {
     return currentValue;
   });
 };
+
 const handleDexInput: InputHandler = (currentValue, setValue) => {
   setValue((prevValue) => {
     const { length } = currentValue;
@@ -51,4 +52,21 @@ const handleHexInput: InputHandler = (currentValue, setValue) => {
   });
 };
 
-export { isConverterType, handleTextInput, handleDexInput, handleHexInput };
+const handleClipboardInput = (setValue: Dispatch<SetStateAction<string>>) => {
+  navigator.clipboard
+    .readText()
+    .then((text) => {
+      setValue(text);
+    })
+    .catch((err) => {
+      console.error('Failed to read clipboard contents: ', err);
+    });
+};
+
+export {
+  isConverterType,
+  handleTextInput,
+  handleDexInput,
+  handleHexInput,
+  handleClipboardInput,
+};

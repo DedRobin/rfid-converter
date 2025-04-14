@@ -1,6 +1,7 @@
-import { ChangeEvent, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { ConverterType } from '../../../types/App';
 import {
+  handleClipboardInput,
   handleDexInput,
   handleHexInput,
   handleTextInput,
@@ -27,8 +28,16 @@ export default function ConverterInput({
   const [placeholder, setPlaceholder] = useState(templates.text);
   const [type, setType] = useState<ConverterType>('text');
 
-  const onClick = () => {
+  const insertDataFromClipboard = (event: KeyboardEvent) => {
+    if (event.ctrlKey && event.key === 'v') handleClipboardInput(setValue);
+  };
+
+  const onConvertClick = () => {
     convertTo({ value, type });
+  };
+
+  const onClearClick = () => {
+    setValue('');
   };
 
   const onSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -57,6 +66,14 @@ export default function ConverterInput({
     }
   };
 
+  useEffect(() => {
+    window.addEventListener('keydown', insertDataFromClipboard);
+
+    return () => {
+      window.removeEventListener('keydown', insertDataFromClipboard);
+    };
+  }, []);
+
   return (
     <div className={className}>
       <select className={`${className}__select`} onChange={onSelectChange}>
@@ -77,7 +94,18 @@ export default function ConverterInput({
         placeholder={placeholder}
         onChange={onInputChange}
       />
-      <button className="field__button" onClick={onClick} type="button">
+      <button
+        className="field__button--clear"
+        onClick={onClearClick}
+        type="button"
+      >
+        X
+      </button>
+      <button
+        className="field__button--convert"
+        onClick={onConvertClick}
+        type="button"
+      >
         Convert
       </button>
     </div>
