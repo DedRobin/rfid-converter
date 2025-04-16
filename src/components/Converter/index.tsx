@@ -29,8 +29,12 @@ export default function Converter() {
       setFields({ ...fields, text, dex, hex: value });
     }
   };
+
   return (
-    <form className="converted-form">
+    <form
+      className="converted-form"
+      onSubmit={(event) => event.preventDefault()}
+    >
       <ConverterInput labelName="Text" convertTo={convertTo} />
       <ConverterOutput text={fields.text} dex={fields.dex} hex={fields.hex} />
     </form>

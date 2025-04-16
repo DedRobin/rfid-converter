@@ -11,7 +11,27 @@ const isConverterType = (value: string): value is ConverterType => {
   return ['text', 'dex', 'hex'].includes(value);
 };
 
-const handleTextInput: InputHandler = (currentValue, setValue) => {
+const handleInput = (
+  value: string,
+  type: ConverterType,
+  setValue: Dispatch<SetStateAction<string>>
+) => {
+  switch (type) {
+    case 'text':
+      handleAsText(value, setValue);
+      break;
+    case 'dex':
+      handleAsDex(value, setValue);
+      break;
+    case 'hex':
+      handleAsHex(value, setValue);
+      break;
+    default:
+      setValue(value);
+  }
+};
+
+const handleAsText: InputHandler = (currentValue, setValue) => {
   setValue((prevValue) => {
     const { length } = currentValue;
     const lastChar = currentValue.slice(-1);
@@ -28,7 +48,7 @@ const handleTextInput: InputHandler = (currentValue, setValue) => {
   });
 };
 
-const handleDexInput: InputHandler = (currentValue, setValue) => {
+const handleAsDex: InputHandler = (currentValue, setValue) => {
   setValue((prevValue) => {
     const { length } = currentValue;
     const lastChar = currentValue.slice(-1);
@@ -40,7 +60,7 @@ const handleDexInput: InputHandler = (currentValue, setValue) => {
   });
 };
 
-const handleHexInput: InputHandler = (currentValue, setValue) => {
+const handleAsHex: InputHandler = (currentValue, setValue) => {
   setValue((prevValue) => {
     const { length } = currentValue;
     const lastChar = currentValue.slice(-1);
@@ -52,21 +72,18 @@ const handleHexInput: InputHandler = (currentValue, setValue) => {
   });
 };
 
-const handleClipboardInput = (setValue: Dispatch<SetStateAction<string>>) => {
+const handleClipboardInput = (
+  type: ConverterType,
+  setValue: Dispatch<SetStateAction<string>>
+) => {
   navigator.clipboard
     .readText()
     .then((text) => {
-      setValue(text);
+      handleInput(text, type, setValue);
     })
     .catch((err) => {
       console.error('Failed to read clipboard contents: ', err);
     });
 };
 
-export {
-  isConverterType,
-  handleTextInput,
-  handleDexInput,
-  handleHexInput,
-  handleClipboardInput,
-};
+export { isConverterType, handleClipboardInput, handleInput };
