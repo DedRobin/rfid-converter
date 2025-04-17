@@ -23,7 +23,7 @@ const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
         <div className={`${className}__text-label`}>Text</div>
         <div className={`${className}__text-value`}>{text}</div>
         <div
-          className={`${className}__text-copied`}
+          className={`${className}__text--copied`}
           onClick={() => handleCopy(text, 'text')}
         >
           {copied.text ? '✅' : '📋'}
@@ -33,7 +33,7 @@ const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
         <div className={`${className}__dex-label`}>Dex</div>
         <div className={`${className}__dex-value`}>{dex}</div>
         <div
-          className={`${className}__dex-copied`}
+          className={`${className}__dex--copied`}
           onClick={() => handleCopy(dex, 'dex')}
         >
           {copied.dex ? '✅' : '📋'}
@@ -43,7 +43,7 @@ const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
         <div className={`${className}__hex-label`}>Hex</div>
         <div className={`${className}__hex-value`}>{hex}</div>
         <div
-          className={`${className}__hex-copied`}
+          className={`${className}__hex--copied`}
           onClick={() => handleCopy(hex, 'hex')}
         >
           {copied.hex ? '✅' : '📋'}

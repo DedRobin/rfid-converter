@@ -3,4 +3,5 @@ const defaultTemplates = {
   dex: '0000000000',
   hex: '000000',
 };
+
 export { defaultTemplates };

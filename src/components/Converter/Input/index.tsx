@@ -3,6 +3,7 @@ import { ConverterType } from '../../../types/App';
 import { handleClipboardInput, handleInput, isConverterType } from './services';
 import { ConverterInputProps } from '../../../types/Converter';
 import { defaultTemplates } from './constants';
+import { useTranslation } from 'react-i18next';
 import './style.css';
 
 export default function ConverterInput({
@@ -15,6 +16,7 @@ export default function ConverterInput({
   const [value, setValue] = useState('');
   const [placeholder, setPlaceholder] = useState(templates.text);
   const [type, setType] = useState<ConverterType>('text');
+  const { t } = useTranslation();
 
   const insertDataFromClipboard = useCallback(
     (event: KeyboardEvent) => {
@@ -82,7 +84,7 @@ export default function ConverterInput({
         onClick={onConvertClick}
         type="button"
       >
-        Convert
+        {t('Convert')}
       </button>
     </div>
   );
