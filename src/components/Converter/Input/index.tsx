@@ -1,9 +1,10 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { ConverterType } from '../../../types/App';
 import { handleClipboardInput, handleInput, isConverterType } from './services';
-import { ConverterInputProps } from '../../../types/Converter';
+import { ConverterInputProps } from '../../../interfaces/Converter';
 import { defaultTemplates } from './constants';
 import { useTranslation } from 'react-i18next';
+import SelectType from './SelectType';
 import './style.css';
 
 export default function ConverterInput({
@@ -53,17 +54,10 @@ export default function ConverterInput({
 
   return (
     <div className={className}>
-      <select className={`${className}__select`} onChange={onSelectTypeChange}>
-        <option className="select__option" value="text">
-          Text
-        </option>
-        <option className="select__option" value="dex">
-          DEX
-        </option>
-        <option className="select__option" value="hex">
-          HEX
-        </option>
-      </select>
+      <SelectType
+        className={className}
+        onSelectTypeChange={onSelectTypeChange}
+      />
       <input
         id={labelName}
         className={`${className}__input`}
