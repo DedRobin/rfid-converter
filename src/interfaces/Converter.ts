@@ -6,6 +6,12 @@ interface ConverterInputProps {
   convertTo: ConvertTo;
 }
 
+interface Fields {
+  text: string;
+  dex: string;
+  hex: string;
+}
+
 interface ConverterOutputProps {
   text: string;
   dex: string;
@@ -17,4 +23,9 @@ interface SelectTypeProps {
   onSelectTypeChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export type { ConverterInputProps, ConverterOutputProps, SelectTypeProps };
+export type {
+  ConverterInputProps,
+  ConverterOutputProps,
+  SelectTypeProps,
+  Fields,
+};

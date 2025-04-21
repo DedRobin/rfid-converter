@@ -1,3 +1,6 @@
+import { Fields } from '../../interfaces/Converter';
+import { ConverterType } from '../../types/App';
+
 const fromHexToDex = (value: string) => {
   return String(Number.parseInt(value, 16)).padStart(10, '0');
 };
@@ -50,4 +53,34 @@ const convert = {
   fromTextToHex,
 } as const;
 
-export { convert };
+const updateField = (
+  type: ConverterType,
+  data: { fields: Fields; value: string }
+): Fields => {
+  const { fields, value } = data;
+  let dex, hex, text;
+
+  switch (type) {
+    case 'text':
+      dex = convert.fromTextToDex(value);
+      hex = convert.fromTextToHex(value);
+      text = value;
+      break;
+    case 'dex':
+      hex = convert.fromDexToHex(value);
+      text = convert.fromDexToText(value);
+      dex = value;
+      break;
+    case 'hex':
+      dex = convert.fromHexToDex(value);
+      text = convert.fromHexToText(value);
+      hex = value;
+      break;
+    default:
+      return fields;
+  }
+
+  return { ...fields, text, dex, hex };
+};
+
+export { convert, updateField };
