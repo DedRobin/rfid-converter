@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { ConverterType } from '../../../types/App';
 import { handleClipboardInput, handleInput, isConverterType } from './services';
-import { ConverterInputProps } from '../../../interfaces/Converter';
+import { ConverterInputProps } from '../../../interfaces/converter';
 import { defaultTemplates } from './constants';
 import { useTranslation } from 'react-i18next';
 import SelectType from './SelectType';

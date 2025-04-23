@@ -1,4 +1,4 @@
-import { SelectTypeProps } from '../../../interfaces/Converter';
+import { SelectTypeProps } from '../../../interfaces/converter';
 
 export default function SelectType({
   className,

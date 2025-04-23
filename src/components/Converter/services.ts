@@ -1,4 +1,4 @@
-import { Fields } from '../../interfaces/Converter';
+import { Fields } from '../../interfaces/converter';
 import { ConverterType } from '../../types/App';
 
 const fromHexToDex = (value: string) => {
