@@ -8,11 +8,19 @@ const resources = {
   en: {
     translation: {
       Convert: 'Convert',
+      languageToggler: {
+        en: 'EN',
+        ru: 'RU',
+      },
     },
   },
   ru: {
     translation: {
       Convert: 'Конвертировать',
+      languageToggler: {
+        en: 'Англ.',
+        ru: 'Рус.',
+      },
     },
   },
 };
