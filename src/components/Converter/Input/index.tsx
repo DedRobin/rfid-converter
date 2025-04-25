@@ -1,11 +1,11 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
-import { ConverterType } from '../../../types/App';
+import type { ConverterType } from '@customTypes/App';
 import { handleClipboardInput, handleInput, isConverterType } from './services';
 import { defaultTemplates } from './constants';
 import { useTranslation } from 'react-i18next';
 import SelectType from './SelectType';
+import type { ConverterInputProps } from '@interfaces/Converter';
 import './style.css';
-import { ConverterInputProps } from '../../../interfaces/converter';
 
 export default function ConverterInput({
   labelName,

@@ -1,5 +1,5 @@
-import { Fields } from '../../interfaces/converter';
-import { ConverterType } from '../../types/App';
+import type { ConverterType } from '@customTypes/App';
+import type { Fields } from '@interfaces/Converter';
 
 const fromHexToDex = (value: string) => {
   return String(Number.parseInt(value, 16)).padStart(10, '0');

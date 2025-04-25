@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { ConverterOutputProps } from '../../../interfaces/converter';
+import type { ConverterOutputProps } from '@interfaces/Converter';
 import './style.css';
 
 const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
