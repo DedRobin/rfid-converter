@@ -1,11 +1,11 @@
-import Converter from './components/Converter';
-import LanguageToggler from './components/LanguageToggler';
+import Converter from '@components/Converter';
+import LanguageToggler from '@components/LanguageToggler';
 import { useSelector } from 'react-redux';
-import { RootState } from './store/store';
+import { RootState } from '@store/store';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import './App.css';
-import Loader from './shared/UI/Loader';
+import Loader from '@shared/UI/Loader';
 
 function App() {
   const { language } = useSelector((state: RootState) => state.language);
