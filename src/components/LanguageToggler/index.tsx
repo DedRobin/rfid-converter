@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLanguage } from '../../store/slices/languageSlice';
-import { RootState } from '../../store/store';
+import { RootState } from '../../store';
 import './style.css';
 
 export default function LanguageToggler() {

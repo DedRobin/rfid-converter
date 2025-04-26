@@ -1,8 +1,8 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   base: './',
@@ -14,5 +14,13 @@ export default defineConfig({
       '@interfaces': path.resolve(__dirname, 'src/interfaces'),
       '@customTypes': path.resolve(__dirname, 'src/types'),
     },
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/tests/setup.ts'],
+    coverage: {
+      include: ['src/**/*.{ts,tsx}'],
+    },
+    watch: false,
   },
 });
