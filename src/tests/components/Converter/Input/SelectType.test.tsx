@@ -1,14 +1,30 @@
-import { render } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { render, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import SelectType from '../../../../components/Converter/Input/SelectType';
 
-// Assuming SelectType is a default export from SelectType.tsx
+
+const mockProps = {
+  className: 'select',
+  onSelectTypeChange: vi.fn(),
+};
 
 describe('SelectType Component', () => {
-  it('should render the SelectType component', () => {
-    const { container } = render(<SelectType />);
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
-    // Check if the component is rendered
+  it('should render the SelectType component', () => {
+    const { container } = render(<SelectType {...mockProps} />);
+
     expect(container).toBeInTheDocument();
+  });
+
+  it('should call onSelectTypeChange when the component is interacted with', () => {
+    const { getByRole } = render(<SelectType {...mockProps} />);
+
+    const selectElement = getByRole('combobox') as HTMLSelectElement;
+    fireEvent.change(selectElement, { target: { value: 'dex' } });
+
+    expect(mockProps.onSelectTypeChange).toHaveBeenCalled();
   });
 });
