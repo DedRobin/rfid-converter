@@ -27,4 +27,11 @@ describe('SelectType Component', () => {
 
     expect(mockProps.onSelectTypeChange).toHaveBeenCalled();
   });
+
+  it('should render the SelectType component with the correct options', () => {
+    const { getByRole } = render(<SelectType {...mockProps} />);
+
+    const selectElement = getByRole('combobox') as HTMLSelectElement;
+    expect(selectElement.options).toHaveLength(3);
+  });  
 });
