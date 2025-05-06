@@ -45,6 +45,7 @@ const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
         <div
           className={`${className}__hex--copied`}
           onClick={() => handleCopy(hex, 'hex')}
+          data-testid="hex-copy-button"
         >
           {copied.hex ? '✅' : '📋'}
         </div>

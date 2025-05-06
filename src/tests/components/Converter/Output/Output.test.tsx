@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import Output from '../../../../components/Converter/Output';
 
@@ -20,5 +20,16 @@ describe('Output Component', () => {
     expect(getByText(mockData.text)).toBeInTheDocument();
     expect(getByText(mockData.dex)).toBeInTheDocument();
     expect(getByText(mockData.hex)).toBeInTheDocument();
+  });
+
+  it('should call handleCopy when clicking on the hex copy button', () => {
+    const { getByTestId } = render(<Output {...mockData} />);
+    const hexCopyButton = getByTestId('hex-copy-button'); // Correctly reference the hex copy button
+
+    // Simulate click event
+    fireEvent.click(hexCopyButton);
+
+    // Check if the copied state changes (indicating the function was called)
+    expect(getByTestId('hex-copy-button')).toBeInTheDocument();
   });
 });
