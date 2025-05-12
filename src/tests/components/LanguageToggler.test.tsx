@@ -16,4 +16,16 @@ describe('LanguageToggler Component', () => {
     const selectElement = screen.getByRole('combobox');
     expect(selectElement).toBeInTheDocument();
   });
+
+  it('should have language-toggler class and value set to en', () => {
+    render(
+      <Provider store={store}>
+        <LanguageToggler />
+      </Provider>
+    );
+
+    const selectElement = screen.getByRole('combobox');
+    expect(selectElement).toHaveClass('language-toggler');
+    expect(selectElement).toHaveValue('en');
+  });
 });
