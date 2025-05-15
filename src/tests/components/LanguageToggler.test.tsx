@@ -39,5 +39,8 @@ describe('LanguageToggler Component', () => {
     const selectElement = screen.getByRole('combobox');
     fireEvent.change(selectElement, { target: { value: 'ru' } });
     expect(selectElement).toHaveValue('ru');
+
+    fireEvent.change(selectElement, { target: { value: 'en' } });
+    expect(selectElement).toHaveValue('en');
   });
 });
