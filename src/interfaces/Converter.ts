@@ -4,6 +4,7 @@ import { ConvertTo } from '../types/App';
 interface ConverterInputProps {
   labelName: string;
   convertTo: ConvertTo;
+  saveAsCsv: () => void;
 }
 
 interface Fields {

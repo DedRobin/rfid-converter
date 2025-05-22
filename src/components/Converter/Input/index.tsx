@@ -1,4 +1,12 @@
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import type { ConverterType } from '@customTypes/App';
 import { handleClipboardInput, handleInput, isConverterType } from './services';
 import { defaultTemplates } from './constants';
@@ -10,6 +18,7 @@ import './style.css';
 export default function ConverterInput({
   labelName,
   convertTo,
+  saveAsCsv,
 }: ConverterInputProps) {
   const className = useMemo(() => 'converter-input', []);
   const templates = useMemo(() => defaultTemplates, []);
@@ -29,9 +38,11 @@ export default function ConverterInput({
     },
     [type, value, convertTo]
   );
-  const onConvertClick = () => convertTo({ value, type });
-  const onClearClick = () => setValue('');
-  const onSelectTypeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+
+  const onConvertClick: MouseEventHandler<HTMLButtonElement> = () =>
+    convertTo({ value, type });
+  const onClearClick: MouseEventHandler<HTMLButtonElement> = () => setValue('');
+  const onSelectTypeChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
     const currentType = event.target.value;
     if (isConverterType(currentType)) {
       setType(currentType);
@@ -39,9 +50,13 @@ export default function ConverterInput({
       setValue('');
     }
   };
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { value } = event.target;
     handleInput(value, type, setValue);
+  };
+  const onSaveClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    saveAsCsv();
   };
 
   useEffect(() => {
@@ -79,6 +94,13 @@ export default function ConverterInput({
         type="button"
       >
         {t('Convert')}
+      </button>
+      <button
+        className="field__button--save"
+        onClick={onSaveClick}
+        type="button"
+      >
+        💾
       </button>
     </div>
   );
