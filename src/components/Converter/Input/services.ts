@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
+
 import { ConverterType } from '../../../types/App';
 import { isABCDEF, isNumber } from '../../../tools/character';
+import { MAX_DEX_LENGTH, MAX_DEX_VALUE } from './constants';
 
 type InputHandler = (
   value: string,
@@ -54,7 +56,9 @@ const handleAsDex: InputHandler = (currentValue, setValue) => {
     const lastChar = currentValue.slice(-1);
 
     if (!isNumber(lastChar)) return prevValue;
-    if (length >= 11) return prevValue;
+    if (length >= MAX_DEX_LENGTH) return prevValue;
+    if (Number(currentValue) >= MAX_DEX_VALUE.NUMBER)
+      return MAX_DEX_VALUE.STRING;
 
     return currentValue;
   });

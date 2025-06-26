@@ -8,7 +8,7 @@ import {
 } from 'react';
 import type { ConverterType } from '@customTypes/App';
 import { handleClipboardInput, handleInput, isConverterType } from './services';
-import { defaultTemplates } from './constants';
+import { DEFAULT_TEMPLATES } from './constants';
 import { useTranslation } from 'react-i18next';
 import SelectType from './SelectType';
 import type { ConverterInputProps } from '@interfaces/Converter';
@@ -20,7 +20,7 @@ export default function ConverterInput({
   saveAsCsv,
 }: ConverterInputProps) {
   const className = useMemo(() => 'converter-input', []);
-  const templates = useMemo(() => defaultTemplates, []);
+  const templates = useMemo(() => DEFAULT_TEMPLATES, []);
 
   const [value, setValue] = useState('');
   const [placeholder, setPlaceholder] = useState(templates.text);
