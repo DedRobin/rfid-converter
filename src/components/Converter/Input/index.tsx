@@ -68,39 +68,43 @@ export default function ConverterInput({
 
   return (
     <div className={className}>
-      <SelectType
-        className={className}
-        onSelectTypeChange={onSelectTypeChange}
-      />
-      <input
-        id={labelName}
-        className={`${className}__input`}
-        value={value}
-        placeholder={placeholder}
-        onChange={onInputChange}
-        autoFocus={true}
-      />
-      <button
-        className="field__button--clear"
-        onClick={onClearClick}
-        type="button"
-      >
-        X
-      </button>
-      <button
-        className="field__button--convert"
-        onClick={onConvertClick}
-        type="button"
-      >
-        {t('Convert')}
-      </button>
-      <button
-        className="field__button--save"
-        onClick={onSaveClick}
-        type="button"
-      >
-        💾
-      </button>
+      <div className={`${className}__value`}>
+        <SelectType
+          className={className}
+          onSelectTypeChange={onSelectTypeChange}
+        />
+        <input
+          id={labelName}
+          className={`${className}__input`}
+          value={value}
+          placeholder={placeholder}
+          onChange={onInputChange}
+          autoFocus={true}
+        />
+      </div>
+      <div className={`${className}__buttons`}>
+        <button
+          className="field__button--clear"
+          onClick={onClearClick}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="field__button--convert"
+          onClick={onConvertClick}
+          type="button"
+        >
+          {t('Convert')}
+        </button>
+        <button
+          className="field__button--save"
+          onClick={onSaveClick}
+          type="button"
+        >
+          💾
+        </button>
+      </div>
     </div>
   );
 }
