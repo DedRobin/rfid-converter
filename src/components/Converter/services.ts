@@ -32,8 +32,8 @@ const fromTextToHex = (value: string) => {
   const afterDex = Number(afterText);
   if (Number.isNaN(beforeDex) || Number.isNaN(afterDex))
     throw new Error('Got NaN');
-  const beforeHex = beforeDex.toString(16);
-  const afterHex = afterDex.toString(16);
+  const beforeHex = beforeDex.toString(16).padStart(2, '0');
+  const afterHex = afterDex.toString(16).padStart(4, '0');
 
   return [beforeHex, afterHex].join('').toUpperCase();
 };
