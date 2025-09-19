@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { ConverterType } from '../../../types/App';
 import { isABCDEF, isNumber } from '../../../tools/character';
-import { MAX_DEX_LENGTH, MAX_DEX_VALUE } from './constants';
+import { MAX_DEX_LENGTH, MAX_DEX_VALUE, MAX_TEXT_VALUE } from './constants';
 
 type InputHandler = (
   value: string,
@@ -35,18 +35,31 @@ const handleInput = (
 
 const handleAsText: InputHandler = (currentValue, setValue) => {
   setValue((prevValue) => {
+    let updatedValue = currentValue;
     const { length } = currentValue;
     const lastChar = currentValue.slice(-1);
 
     if (!isNumber(lastChar) && lastChar !== ',') return prevValue;
     if (length >= 10) return prevValue;
     if (length === 4) {
-      return lastChar !== ','
-        ? [prevValue, lastChar].join(',')
-        : currentValue.slice(0, 3);
+      updatedValue =
+        lastChar !== ','
+          ? [prevValue, lastChar].join(',')
+          : currentValue.slice(0, 3);
     }
 
-    return currentValue;
+    let [left, right] = updatedValue.split(',').map((v) => Number(v));
+    if (left && !Number.isNaN(left) && left > MAX_TEXT_VALUE.LEFT) {
+      updatedValue = String(MAX_TEXT_VALUE.LEFT);
+      if (right) updatedValue += ',' + right;
+      left = MAX_TEXT_VALUE.LEFT;
+    }
+    if (right && right > MAX_TEXT_VALUE.RIGHT) {
+      updatedValue = left + ',' + MAX_TEXT_VALUE.RIGHT;
+      right = MAX_TEXT_VALUE.RIGHT;
+    }
+
+    return updatedValue;
   });
 };
 

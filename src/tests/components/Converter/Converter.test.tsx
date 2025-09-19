@@ -43,19 +43,19 @@ describe('Converter Component', () => {
     }
   });
 
-  // it('The left part of text data should be less than 255', () => {
-  //   const { container } = render(
-  //     <I18nextProvider i18n={i18n}>
-  //       <Converter />
-  //     </I18nextProvider>
-  //   );
-  //   const input = container.querySelector('.converter-input__input');
-  //   if (input && input instanceof HTMLInputElement) {
-  //     fireEvent.change(input, { target: { value: '256,65537' } });
-  //     const [left, right] = input.value.split(',').map((v) => Number(v));
+  it('The left part of text data should be less than 255', () => {
+    const { container } = render(
+      <I18nextProvider i18n={i18n}>
+        <Converter />
+      </I18nextProvider>
+    );
+    const input = container.querySelector('.converter-input__input');
+    if (input && input instanceof HTMLInputElement) {
+      fireEvent.change(input, { target: { value: '256,65537' } });
+      const [left, right] = input.value.split(',').map((v) => Number(v));
 
-  //     expect(left).toBeLessThanOrEqual(255);
-  //     expect(right).toBeLessThanOrEqual(65535);
-  //   }
-  // });
+      expect(left).toBeLessThanOrEqual(255);
+      expect(right).toBeLessThanOrEqual(65535);
+    }
+  });
 });
