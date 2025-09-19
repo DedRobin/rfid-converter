@@ -3,12 +3,16 @@ import { describe, it, expect } from 'vitest';
 import { Provider } from 'react-redux';
 import LanguageToggler from '../../components/LanguageToggler/index';
 import store from '@store/index';
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../../i18n';
 
 describe('LanguageToggler Component', () => {
   it('should render the LanguageToggler component', () => {
     render(
       <Provider store={store}>
-        <LanguageToggler />
+        <I18nextProvider i18n={i18n}>
+          <LanguageToggler />
+        </I18nextProvider>
       </Provider>
     );
 
@@ -20,7 +24,9 @@ describe('LanguageToggler Component', () => {
   it('should have language-toggler class and value set to en', () => {
     render(
       <Provider store={store}>
-        <LanguageToggler />
+        <I18nextProvider i18n={i18n}>
+          <LanguageToggler />
+        </I18nextProvider>
       </Provider>
     );
 
@@ -32,7 +38,9 @@ describe('LanguageToggler Component', () => {
   it('should change language to ru when selected', () => {
     render(
       <Provider store={store}>
-        <LanguageToggler />
+        <I18nextProvider i18n={i18n}>
+          <LanguageToggler />
+        </I18nextProvider>
       </Provider>
     );
 
