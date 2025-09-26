@@ -12,6 +12,10 @@ const resources = {
         en: 'EN',
         ru: 'RU',
       },
+      output: {
+        fallback:
+          'Enter the card\'s code and click the "Convert" button. HEX,DEX,and TEXT format codes are displayed here.',
+      },
     },
   },
   ru: {
@@ -20,6 +24,10 @@ const resources = {
       languageToggler: {
         en: 'Англ.',
         ru: 'Рус.',
+      },
+      output: {
+        fallback:
+          'Введите код карты и нажмите кнопук "Конверитровать". Здесь отоброзятся коды формата HEX, DEX, TEXT',
       },
     },
   },

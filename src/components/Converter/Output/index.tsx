@@ -1,55 +1,49 @@
-import { memo, useState } from 'react';
+import { memo, MouseEvent } from 'react';
 import type { ConverterOutputProps } from '@interfaces/Converter';
+
+import { CardFormatContext } from './context';
+import TextValue from './values/TextValue';
+import DexValue from './values/DexValue';
+import HexValue from './values/HexValue';
+import FallbackMessage from './FallbackMessage';
 import './style.css';
 
 const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
   const className = 'converter-output';
 
-  const [copied, setCopied] = useState({ text: false, dex: false, hex: false });
+  const handleCopy = async (e: MouseEvent<HTMLDivElement>, value: string) => {
+    const element = e.target;
+    if (!(element instanceof HTMLDivElement)) return;
 
-  const handleCopy = async (value: string, type: 'text' | 'dex' | 'hex') => {
     try {
       await navigator.clipboard.writeText(value);
-      setCopied((prev) => ({ ...prev, [type]: true }));
-      setTimeout(() => setCopied((prev) => ({ ...prev, [type]: false })), 2000);
+      element.classList.add('copied');
+      setTimeout(() => element.classList.remove('copied'), 2000);
     } catch (err) {
       console.error('Failed to copy text: ', err);
     }
   };
 
+  const hasData = hex && dex && text;
+
   return (
     <div className={className}>
-      <div className={`${className}__text`}>
-        <div className={`${className}__text-label`}>Text</div>
-        <div className={`${className}__text-value`}>{text}</div>
-        <div
-          className={`${className}__text--copied`}
-          onClick={() => handleCopy(text, 'text')}
-        >
-          {copied.text ? '✅' : '📋'}
+      <CardFormatContext.Provider
+        value={{ className, handleCopy, values: { text, dex, hex } }}
+      >
+        <div className={`${className}__card-hole`}></div>
+        <div className={`${className}__wrapper`}>
+          {hasData ? (
+            <>
+              <HexValue />
+              <DexValue />
+              <TextValue />
+            </>
+          ) : (
+            <FallbackMessage />
+          )}
         </div>
-      </div>
-      <div className={`${className}__dex`}>
-        <div className={`${className}__dex-label`}>Dex</div>
-        <div className={`${className}__dex-value`}>{dex}</div>
-        <div
-          className={`${className}__dex--copied`}
-          onClick={() => handleCopy(dex, 'dex')}
-        >
-          {copied.dex ? '✅' : '📋'}
-        </div>
-      </div>
-      <div className={`${className}__hex`}>
-        <div className={`${className}__hex-label`}>Hex</div>
-        <div className={`${className}__hex-value`}>{hex}</div>
-        <div
-          className={`${className}__hex--copied`}
-          onClick={() => handleCopy(hex, 'hex')}
-          data-testid="hex-copy-button"
-        >
-          {copied.hex ? '✅' : '📋'}
-        </div>
-      </div>
+      </CardFormatContext.Provider>
     </div>
   );
 });
