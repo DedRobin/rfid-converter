@@ -13,7 +13,7 @@
 
   width: var(--card-width);
   aspect-ratio: var(--card-aspect-ratio);
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.85);
   box-shadow: var(--card-box-shadow);
 
   .converter-output__card-hole {

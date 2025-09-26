@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import Output from '../../../../components/Converter/Output';
 
@@ -23,21 +23,22 @@ describe('Output Component', () => {
   });
 
   it('should call handleCopy when clicking on the hex copy button', async () => {
-    const { getByTestId } = render(<Output {...mockData} />);
-    const hexCopyButton = getByTestId('hex-copy-button');
+    const { getByText } = render(<Output {...mockData} />);
+    const textValue = getByText(mockData.text);
+    const dexValue = getByText(mockData.dex);
+    const hexValue = getByText(mockData.hex);
 
-    expect(hexCopyButton).toBeInTheDocument();
-    expect(hexCopyButton).toHaveTextContent('📋');
+    expect(textValue).toBeInTheDocument();
+    expect(dexValue).toBeInTheDocument();
+    expect(hexValue).toBeInTheDocument();
 
-    // Simulate click event
-    fireEvent.click(hexCopyButton);
+    fireEvent.click(textValue);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockData.text);
 
-    // Wait for the state change
-    await waitFor(() => {
-      expect(hexCopyButton).toHaveTextContent('✅');
-    });
+    fireEvent.click(dexValue);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockData.dex);
 
-    // Verify that the clipboard writeText method was called
+    fireEvent.click(hexValue);
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockData.hex);
   });
 });
