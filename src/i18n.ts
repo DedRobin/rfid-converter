@@ -13,8 +13,9 @@ const resources = {
         ru: 'RU',
       },
       output: {
-        fallback:
+        initMasg:
           'Enter the card\'s code and click the "Convert" button. HEX,DEX,and TEXT format codes are displayed here.',
+        afterConvertMsg: 'Hover over the code to copy it.',
       },
     },
   },
@@ -26,8 +27,9 @@ const resources = {
         ru: 'Рус.',
       },
       output: {
-        fallback:
+        initMasg:
           'Введите код карты и нажмите кнопук "Конверитровать". Здесь отоброзятся коды формата HEX, DEX, TEXT',
+        afterConvertMsg: 'Наведите курсор на код, чтобы скопировать его.',
       },
     },
   },

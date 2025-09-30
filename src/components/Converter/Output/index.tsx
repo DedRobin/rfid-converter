@@ -5,7 +5,7 @@ import { CardFormatContext } from './context';
 import TextValue from './values/TextValue';
 import DexValue from './values/DexValue';
 import HexValue from './values/HexValue';
-import FallbackMessage from './FallbackMessage';
+import PromptMessage from './PromptMessage';
 import './style.css';
 
 const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
@@ -24,7 +24,7 @@ const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
     }
   };
 
-  const hasData = hex && dex && text;
+  const hasConvertedData = !!(hex && dex && text);
 
   return (
     <div className={className}>
@@ -33,15 +33,16 @@ const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
       >
         <div className={`${className}__card-hole`}></div>
         <div className={`${className}__wrapper`}>
-          {hasData ? (
+          {
             <>
-              <HexValue />
-              <DexValue />
-              <TextValue />
+              <PromptMessage hasConvertedData={hasConvertedData} />
+              <div className={`${className}__values`}>
+                <HexValue />
+                <DexValue />
+                <TextValue />
+              </div>
             </>
-          ) : (
-            <FallbackMessage />
-          )}
+          }
         </div>
       </CardFormatContext.Provider>
     </div>

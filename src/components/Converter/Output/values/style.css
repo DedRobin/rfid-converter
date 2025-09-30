@@ -1,0 +1,64 @@
+.converter-output__text,
+.converter-output__dex,
+.converter-output__hex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .converter-output__text-value,
+  .converter-output__dex-value,
+  .converter-output__hex-value {
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &::before {
+      content: '✓';
+      position: absolute;
+      visibility: hidden;
+    }
+
+    &.copied,
+    &.copied:hover {
+      color: rgba(0, 128, 0, 1);
+
+      &::before {
+        visibility: visible;
+      }
+    }
+
+    &:hover {
+      color: red;
+    }
+  }
+
+  .converter-output__text-value {
+    anchor-name: --card-number-text;
+
+    &::before {
+      right: anchor(--card-number-text left);
+    }
+  }
+  .converter-output__dex-value {
+    anchor-name: --card-number-dex;
+
+    &::before {
+      right: anchor(--card-number-dex left);
+    }
+  }
+  .converter-output__hex-value {
+    anchor-name: --card-number-hex;
+
+    &::before {
+      right: anchor(--card-number-hex left);
+    }
+  }
+
+  .converter-output__text-label,
+  .converter-output__dex-label,
+  .converter-output__hex-label {
+    font-size: 0.8em;
+    font-style: italic;
+    font-weight: bolder;
+  }
+}
