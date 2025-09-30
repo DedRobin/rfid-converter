@@ -3,9 +3,23 @@ import { useTranslation } from 'react-i18next';
 
 import { CardFormatContext } from './context';
 
-const PromptMessage = ({ hasConvertedData }: { hasConvertedData: boolean }) => {
+const PromptMessage = ({
+  hasConvertedData,
+  isCopied,
+}: {
+  hasConvertedData: boolean;
+  isCopied: boolean;
+}) => {
   const { className } = useContext(CardFormatContext);
   const { t } = useTranslation();
+
+  if (isCopied) {
+    return (
+      <div className={`${className}__prompt`}>
+        <span>{t('output.isCopied')}</span>
+      </div>
+    );
+  }
 
   return (
     <div className={`${className}__prompt`}>

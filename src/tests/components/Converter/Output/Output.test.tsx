@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, beforeAll } from 'vitest';
 import i18n from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
@@ -18,6 +18,7 @@ const resources = {
       output: {
         initMasg: 'Test message 1',
         afterConvertMsg: 'Test message 2',
+        isCopied: 'Copied!',
       },
     },
   },
@@ -26,6 +27,7 @@ const resources = {
       output: {
         initMasg: 'Тестовое сообщение 1',
         afterConvertMsg: 'Тестовое сообщение 2',
+        isCopied: 'Скопировано!',
       },
     },
   },
@@ -96,7 +98,7 @@ describe('Output Component', () => {
     }
   });
 
-  it('should display the message after converting', () => {
+  it('should appear the message after converting', () => {
     const { getByText, container } = render(
       <I18nextProvider i18n={i18n}>
         <Output {...mockData} />
@@ -115,6 +117,34 @@ describe('Output Component', () => {
 
       const afterConvertingMsgRu = getByText(
         resources.ru.translation.output.afterConvertMsg
+      );
+      expect(afterConvertingMsgRu).toBeInTheDocument();
+    }
+  });
+
+  it('should appear the "Copied!" message by clicking on the output code', () => {
+    const { getByText, container } = render(
+      <I18nextProvider i18n={i18n}>
+        <Output {...mockData} />
+      </I18nextProvider>
+    );
+
+    const textCode = getByText(mockData.text);
+    expect(textCode).toBeInTheDocument();
+
+    fireEvent.click(textCode);
+
+    waitFor(() => {
+      const msg = getByText(resources.en.translation.output.isCopied);
+      expect(msg).toBeInTheDocument();
+    });
+
+    const languageToggler = container.querySelector('.language-toggler');
+    if (languageToggler) {
+      fireEvent.change(languageToggler, { target: { value: 'ru' } });
+
+      const afterConvertingMsgRu = getByText(
+        resources.ru.translation.output.isCopied
       );
       expect(afterConvertingMsgRu).toBeInTheDocument();
     }
