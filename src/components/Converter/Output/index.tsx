@@ -1,4 +1,4 @@
-import { memo, MouseEvent, useRef, useState } from 'react';
+import { memo, MouseEvent, useContext, useRef, useState } from 'react';
 import type { ConverterOutputProps } from '@interfaces/Converter';
 
 import { CardFormatContext } from './context';
@@ -6,10 +6,15 @@ import TextValue from './values/TextValue';
 import DexValue from './values/DexValue';
 import HexValue from './values/HexValue';
 import PromptMessage from './PromptMessage';
+import { ToastContext } from '@src/context';
+import { useTranslation } from 'react-i18next';
 import './style.css';
 
 const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
   const className = 'converter-output';
+
+  const { notify } = useContext(ToastContext);
+  const { t } = useTranslation();
 
   const [isCopied, setIsCopied] = useState(false);
 
@@ -43,7 +48,8 @@ const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
         return true;
       });
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      notify(t('output.errors.failToCopy'), 'error');
+      console.error(err);
     }
   };
 

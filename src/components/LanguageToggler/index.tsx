@@ -16,7 +16,12 @@ export default function LanguageToggler() {
   };
 
   return (
-    <select className="language-toggler" value={language} onChange={onChange}>
+    <select
+      className="language-toggler"
+      name="language-toggler"
+      value={language}
+      onChange={onChange}
+    >
       <option value="en">{t('languageToggler.en')}</option>
       <option value="ru">{t('languageToggler.ru')}</option>
     </select>

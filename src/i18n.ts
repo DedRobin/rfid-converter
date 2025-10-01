@@ -17,6 +17,9 @@ const resources = {
           'Enter the card\'s code and click the "Convert" button. HEX,DEX,and TEXT format codes are displayed here.',
         afterConvertMsg: 'Hover over the code to copy it.',
         isCopied: 'Copied!',
+        errors: {
+          failToCopy: 'Failed to copy text',
+        },
       },
     },
   },
@@ -32,6 +35,9 @@ const resources = {
           'Введите код карты и нажмите кнопук "Конверитровать". Здесь отоброзятся коды формата HEX, DEX, TEXT',
         afterConvertMsg: 'Наведите курсор на код, чтобы скопировать его.',
         isCopied: 'Скопировано!',
+        errors: {
+          failToCopy: 'Не удалось скопировать текст',
+        },
       },
     },
   },
