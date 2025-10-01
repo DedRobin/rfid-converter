@@ -1,4 +1,5 @@
 type ConverterType = 'text' | 'dex' | 'hex';
+
 type ConvertToFunction = ({
   value,
   type,
@@ -7,4 +8,6 @@ type ConvertToFunction = ({
   type: ConverterType;
 }) => void;
 
-export type { ConverterType, ConvertToFunction as ConvertTo };
+type NotifyType = 'error' | 'default';
+
+export type { ConverterType, ConvertToFunction as ConvertTo, NotifyType };
