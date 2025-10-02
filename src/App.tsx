@@ -10,7 +10,7 @@ import ToastContext from '@contexts/Toast';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-function App() {
+const App = () => {
   const { language } = useSelector((state: RootState) => state.language);
   const { i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);

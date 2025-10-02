@@ -6,7 +6,7 @@ import { defaultFields } from './constants';
 import { updateField } from './services';
 import { useState } from 'react';
 
-export default function Converter() {
+const Converter = () => {
   const [fields, setFields] = useState(defaultFields);
 
   const saveAsCsv = () => {
@@ -32,11 +32,13 @@ export default function Converter() {
       onSubmit={(event) => event.preventDefault()}
     >
       <ConverterInput
-        labelName="Text"
         convertTo={convertTo}
+        labelName="Text"
         saveAsCsv={saveAsCsv}
       />
-      <ConverterOutput text={fields.text} dex={fields.dex} hex={fields.hex} />
+      <ConverterOutput dex={fields.dex} hex={fields.hex} text={fields.text} />
     </form>
   );
-}
+};
+
+export default Converter;

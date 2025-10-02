@@ -4,7 +4,7 @@ import { RootState } from '../../store';
 import { setLanguage } from '../../store/slices/languageSlice';
 import { useTranslation } from 'react-i18next';
 
-export default function LanguageToggler() {
+const LanguageToggler = () => {
   const dispatch = useDispatch();
   const { language } = useSelector((state: RootState) => state.language);
   const { t } = useTranslation();
@@ -19,11 +19,13 @@ export default function LanguageToggler() {
     <select
       className="language-toggler"
       name="language-toggler"
-      value={language}
       onChange={onChange}
+      value={language}
     >
       <option value="en">{t('languageToggler.en')}</option>
       <option value="ru">{t('languageToggler.ru')}</option>
     </select>
   );
-}
+};
+
+export default LanguageToggler;

@@ -1,5 +1,5 @@
 import './style.css';
-import { MouseEvent, memo, useContext, useRef, useState } from 'react';
+import { FC, MouseEvent, useContext, useRef, useState } from 'react';
 import CardFormatContext from '@contexts/CardFormat';
 import type { ConverterOutputProps } from '@interfaces/Converter';
 import DexValue from './values/DexValue';
@@ -9,7 +9,7 @@ import TextValue from './values/TextValue';
 import ToastContext from '@contexts/Toast';
 import { useTranslation } from 'react-i18next';
 
-const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
+const ConverterOutput: FC<ConverterOutputProps> = ({ text, dex, hex }) => {
   const className = 'converter-output';
 
   const { notify } = useContext(ToastContext);
@@ -59,25 +59,21 @@ const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
       <CardFormatContext.Provider
         value={{ className, handleCopy, values: { text, dex, hex } }}
       >
-        <div className={`${className}__card-hole`}></div>
+        <div className={`${className}__card-hole`} />
         <div className={`${className}__wrapper`}>
-          {
-            <>
-              <PromptMessage
-                hasConvertedData={hasConvertedData}
-                isCopied={isCopied}
-              />
-              <div className={`${className}__values`}>
-                <HexValue />
-                <DexValue />
-                <TextValue />
-              </div>
-            </>
-          }
+          <PromptMessage
+            hasConvertedData={hasConvertedData}
+            isCopied={isCopied}
+          />
+          <div className={`${className}__values`}>
+            <HexValue />
+            <DexValue />
+            <TextValue />
+          </div>
         </div>
       </CardFormatContext.Provider>
     </div>
   );
-});
+};
 
 export default ConverterOutput;

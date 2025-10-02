@@ -78,7 +78,7 @@ describe('Output Component', () => {
   it('should display the initial message', () => {
     const { getByText, container } = render(
       <I18nextProvider i18n={i18n}>
-        <Output text="" dex="" hex="" />
+        <Output dex="" hex="" text="" />
       </I18nextProvider>
     );
 

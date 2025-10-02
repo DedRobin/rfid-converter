@@ -1,6 +1,7 @@
 import './style.css';
 import {
   ChangeEventHandler,
+  FC,
   MouseEventHandler,
   useCallback,
   useEffect,
@@ -14,11 +15,11 @@ import { DEFAULT_TEMPLATES } from './constants';
 import SelectType from './SelectType';
 import { useTranslation } from 'react-i18next';
 
-export default function ConverterInput({
+const ConverterInput: FC<ConverterInputProps> = ({
   labelName,
   convertTo,
   saveAsCsv,
-}: ConverterInputProps) {
+}) => {
   const className = useMemo(() => 'converter-input', []);
   const templates = useMemo(() => DEFAULT_TEMPLATES, []);
 
@@ -74,12 +75,12 @@ export default function ConverterInput({
           onSelectTypeChange={onSelectTypeChange}
         />
         <input
-          id={labelName}
-          className={`${className}__input`}
-          value={value}
-          placeholder={placeholder}
-          onChange={onInputChange}
           autoFocus={true}
+          className={`${className}__input`}
+          id={labelName}
+          onChange={onInputChange}
+          placeholder={placeholder}
+          value={value}
         />
       </div>
       <div className={`${className}__buttons`}>
@@ -107,4 +108,6 @@ export default function ConverterInput({
       </div>
     </div>
   );
-}
+};
+
+export default ConverterInput;
