@@ -11,7 +11,7 @@ const Converter = () => {
 
   const saveAsCsv = () => {
     const csvContent = `text,dex,hex\n"${fields.text}","${fields.dex}","${fields.hex}"`;
-    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -31,11 +31,7 @@ const Converter = () => {
       className="converted-form"
       onSubmit={(event) => event.preventDefault()}
     >
-      <ConverterInput
-        convertTo={convertTo}
-        labelName="Text"
-        saveAsCsv={saveAsCsv}
-      />
+      <ConverterInput convertTo={convertTo} saveAsCsv={saveAsCsv} />
       <ConverterOutput dex={fields.dex} hex={fields.hex} text={fields.text} />
     </form>
   );

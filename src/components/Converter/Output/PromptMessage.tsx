@@ -12,6 +12,10 @@ const PromptMessage = ({
   const { className } = useContext(CardFormatContext);
   const { t } = useTranslation();
 
+  const initMsg = t('output.initMsg')
+    .split('.')
+    .map((stringPart, index) => <p key={index}>{stringPart}</p>);
+
   if (isCopied) {
     return (
       <div className={`${className}__prompt`}>
@@ -22,9 +26,7 @@ const PromptMessage = ({
 
   return (
     <div className={`${className}__prompt`}>
-      <span>
-        {hasConvertedData ? t('output.afterConvertMsg') : t('output.initMasg')}
-      </span>
+      {hasConvertedData ? t('output.afterConvertMsg') : initMsg}
     </div>
   );
 };

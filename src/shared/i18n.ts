@@ -12,8 +12,13 @@ const resources = {
         en: 'EN',
         ru: 'RU',
       },
+      input: {
+        errors: {
+          failToReadFromClipboard: 'Failed to read clipboard contents',
+        },
+      },
       output: {
-        initMasg:
+        initMsg:
           'Enter the card\'s code and click the "Convert" button. HEX,DEX,and TEXT format codes are displayed here.',
         afterConvertMsg: 'Hover over the code to copy it.',
         isCopied: 'Copied!',
@@ -30,9 +35,15 @@ const resources = {
         en: 'Англ.',
         ru: 'Рус.',
       },
+      input: {
+        errors: {
+          failToReadFromClipboard:
+            'Не удалось прочитать содержимое буфера обмена',
+        },
+      },
       output: {
-        initMasg:
-          'Введите код карты и нажмите кнопук "Конверитровать". Здесь отоброзятся коды формата HEX, DEX, TEXT',
+        initMsg:
+          'Введите код карты и нажмите кнопку "Конвертировать". Здесь отоброзятся коды формата HEX, DEX, TEXT',
         afterConvertMsg: 'Наведите курсор на код, чтобы скопировать его.',
         isCopied: 'Скопировано!',
         errors: {

@@ -1,5 +1,10 @@
 import './style.css';
 import { FC, MouseEvent, useContext, useRef, useState } from 'react';
+import {
+  addCopiedStatus,
+  copyToClipboard,
+  disableCopiedStatus,
+} from './services';
 import CardFormatContext from '@contexts/CardFormat';
 import type { ConverterOutputProps } from '@interfaces/Converter';
 import DexValue from './values/DexValue';
@@ -25,21 +30,21 @@ const ConverterOutput: FC<ConverterOutputProps> = ({ text, dex, hex }) => {
     if (!(element instanceof HTMLDivElement)) return;
 
     try {
-      await navigator.clipboard.writeText(value);
+      await copyToClipboard(value);
 
       setIsCopied(() => {
         if (copyTimerId.current) {
           clearTimeout(copyTimerId.current);
-          if (currentValue.current)
-            currentValue.current.classList.remove('copied');
+
+          if (currentValue.current) disableCopiedStatus(currentValue.current);
         }
 
-        element.classList.add('copied');
+        addCopiedStatus(element);
         currentValue.current = element;
 
         copyTimerId.current = setTimeout(() => {
           setIsCopied(() => {
-            element.classList.remove('copied');
+            disableCopiedStatus(element);
             return false;
           });
         }, 2000);

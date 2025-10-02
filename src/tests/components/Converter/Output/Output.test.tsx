@@ -15,7 +15,7 @@ const resources = {
   en: {
     translation: {
       output: {
-        initMasg: 'Test message 1',
+        initMsg: 'Test message 1',
         afterConvertMsg: 'Test message 2',
         isCopied: 'Copied!',
       },
@@ -24,7 +24,7 @@ const resources = {
   ru: {
     translation: {
       output: {
-        initMasg: 'Тестовое сообщение 1',
+        initMsg: 'Тестовое сообщение 1',
         afterConvertMsg: 'Тестовое сообщение 2',
         isCopied: 'Скопировано!',
       },
@@ -82,7 +82,7 @@ describe('Output Component', () => {
       </I18nextProvider>
     );
 
-    const initialMessage = getByText(resources.en.translation.output.initMasg);
+    const initialMessage = getByText(resources.en.translation.output.initMsg);
 
     expect(initialMessage).toBeInTheDocument();
 
@@ -91,7 +91,7 @@ describe('Output Component', () => {
       fireEvent.change(languageToggler, { target: { value: 'ru' } });
 
       const initialMessageRu = getByText(
-        resources.ru.translation.output.initMasg
+        resources.ru.translation.output.initMsg
       );
       expect(initialMessageRu).toBeInTheDocument();
     }

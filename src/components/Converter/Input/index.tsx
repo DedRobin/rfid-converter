@@ -4,39 +4,56 @@ import {
   FC,
   MouseEventHandler,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useState,
 } from 'react';
-import { handleClipboardInput, handleInput, isConverterType } from './services';
+import { handleInput, isConverterType } from './services';
 import type { ConverterInputProps } from '@interfaces/Converter';
 import type { ConverterType } from '@customTypes/App';
 import { DEFAULT_TEMPLATES } from './constants';
 import SelectType from './SelectType';
+import ToastContext from '@contexts/Toast';
 import { useTranslation } from 'react-i18next';
 
-const ConverterInput: FC<ConverterInputProps> = ({
-  labelName,
-  convertTo,
-  saveAsCsv,
-}) => {
+const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
   const className = useMemo(() => 'converter-input', []);
   const templates = useMemo(() => DEFAULT_TEMPLATES, []);
 
+  const { notify } = useContext(ToastContext);
   const [value, setValue] = useState('');
   const [placeholder, setPlaceholder] = useState(templates.text);
   const [type, setType] = useState<ConverterType>('text');
   const { t } = useTranslation();
 
-  const insertDataFromClipboard = useCallback(
+  const handleCtrlV = useCallback(
+    async (event: KeyboardEvent) => {
+      const isCtrlV = event.ctrlKey && event.code === 'KeyV';
+
+      if (isCtrlV) {
+        try {
+          const current = await navigator.clipboard.readText();
+
+          setValue((previous) => handleInput({ previous, current }, type));
+        } catch (error) {
+          const errorMsg = t('input.errors.failToReadFromClipboard');
+
+          notify(errorMsg, 'error');
+          console.error(errorMsg, error);
+        }
+      }
+    },
+    [type, t, notify]
+  );
+
+  const handleEnterKeyword = useCallback(
     (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.code === 'KeyV')
-        handleClipboardInput(type, setValue);
       if (event.key === 'Enter') {
         convertTo({ value, type });
       }
     },
-    [type, value, convertTo]
+    [convertTo, type, value]
   );
 
   const onConvertClick: MouseEventHandler<HTMLButtonElement> = () =>
@@ -51,8 +68,12 @@ const ConverterInput: FC<ConverterInputProps> = ({
     }
   };
   const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const { value } = event.target;
-    handleInput(value, type, setValue);
+    const current = event.target.value;
+
+    setValue((previous) => {
+      const updatedValue = handleInput({ previous, current }, type);
+      return updatedValue;
+    });
   };
   const onSaveClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -60,12 +81,14 @@ const ConverterInput: FC<ConverterInputProps> = ({
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', insertDataFromClipboard);
+    window.addEventListener('keydown', handleCtrlV);
+    window.addEventListener('keydown', handleEnterKeyword);
 
     return () => {
-      window.removeEventListener('keydown', insertDataFromClipboard);
+      window.removeEventListener('keydown', handleCtrlV);
+      window.removeEventListener('keydown', handleEnterKeyword);
     };
-  }, [insertDataFromClipboard]);
+  }, [handleEnterKeyword, handleCtrlV]);
 
   return (
     <div className={className}>
@@ -77,7 +100,7 @@ const ConverterInput: FC<ConverterInputProps> = ({
         <input
           autoFocus={true}
           className={`${className}__input`}
-          id={labelName}
+          id="Text"
           onChange={onInputChange}
           placeholder={placeholder}
           value={value}
