@@ -24,9 +24,10 @@
 
     "baseUrl": "./",
     "paths": {
-      "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@shared/*": ["src/shared/*"],
+      "@tools/*": ["src/tools/*"],
+      "@contexts/*": ["src/contexts/*"],
       "@store/*": ["src/store/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@customTypes/*": ["src/types/*"]

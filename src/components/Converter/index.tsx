@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import ConverterInput from './Input';
-import { ConvertTo } from '../../types/App';
-import ConverterOutput from './Output';
-import { updateField } from './services';
-import { defaultFields } from './constants';
 import './style.css';
+import { ConvertTo } from '@customTypes/App';
+import ConverterInput from './Input';
+import ConverterOutput from './Output';
+import { defaultFields } from './constants';
+import { updateField } from './services';
+import { useState } from 'react';
 
 export default function Converter() {
   const [fields, setFields] = useState(defaultFields);

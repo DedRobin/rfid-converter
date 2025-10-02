@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
-
-import { ConverterType } from '../../../types/App';
-import { isABCDEF, isNumber } from '../../../tools/character';
 import { MAX_DEX_LENGTH, MAX_DEX_VALUE, MAX_TEXT_VALUE } from './constants';
+import { isABCDEF, isNumber } from '@tools/character';
+import { ConverterType } from '@customTypes/App';
 
 type InputHandler = (
   value: string,

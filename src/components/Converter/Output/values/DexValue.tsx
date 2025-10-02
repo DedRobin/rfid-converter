@@ -1,7 +1,7 @@
+import './style.css';
+import CardFormatContext from '@contexts/CardFormat';
 import { useContext } from 'react';
 
-import { CardFormatContext } from '../context';
-import './style.css';
 
 const DexValue = () => {
   const {

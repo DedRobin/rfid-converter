@@ -1,10 +1,10 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import './shared/i18n.ts';
+import './index.css';
 import App from './App.tsx';
 import { Provider } from 'react-redux';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import store from '@store/index.ts';
-import './i18n';
-import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

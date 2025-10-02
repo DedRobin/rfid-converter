@@ -1,14 +1,13 @@
-import { memo, MouseEvent, useContext, useRef, useState } from 'react';
+import './style.css';
+import { MouseEvent, memo, useContext, useRef, useState } from 'react';
+import CardFormatContext from '@contexts/CardFormat';
 import type { ConverterOutputProps } from '@interfaces/Converter';
-
-import { CardFormatContext } from './context';
-import TextValue from './values/TextValue';
 import DexValue from './values/DexValue';
 import HexValue from './values/HexValue';
 import PromptMessage from './PromptMessage';
-import { ToastContext } from '@src/context';
+import TextValue from './values/TextValue';
+import ToastContext from '@contexts/Toast';
 import { useTranslation } from 'react-i18next';
-import './style.css';
 
 const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
   const className = 'converter-output';

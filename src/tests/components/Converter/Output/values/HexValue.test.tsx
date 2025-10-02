@@ -1,8 +1,8 @@
-import { render, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { CardFormatContext } from '@components/Converter/Output/context';
-import mockContextValue from './mockData';
+import { describe, expect, it, vi } from 'vitest';
+import { fireEvent, render } from '@testing-library/react';
+import CardFormatContext from '@contexts/CardFormat';
 import HexValue from '@components/Converter/Output/values/HexValue';
+import mockContextValue from './mockData';
 
 describe('HexValue Component', () => {
   it('should render the HexValue component', () => {

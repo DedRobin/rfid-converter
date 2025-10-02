@@ -1,7 +1,6 @@
-import { describe, it, expect, vi } from 'vitest';
-
-import { render, fireEvent } from '@testing-library/react';
-import { CardFormatContext } from '@components/Converter/Output/context';
+import { describe, expect, it, vi } from 'vitest';
+import { fireEvent, render } from '@testing-library/react';
+import CardFormatContext from '@contexts/CardFormat';
 import DexValue from '@components/Converter/Output/values/DexValue';
 import mockContextValue from './mockData';
 

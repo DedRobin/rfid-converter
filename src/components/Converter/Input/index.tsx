@@ -1,3 +1,4 @@
+import './style.css';
 import {
   ChangeEventHandler,
   MouseEventHandler,
@@ -6,13 +7,12 @@ import {
   useMemo,
   useState,
 } from 'react';
-import type { ConverterType } from '@customTypes/App';
 import { handleClipboardInput, handleInput, isConverterType } from './services';
-import { DEFAULT_TEMPLATES } from './constants';
-import { useTranslation } from 'react-i18next';
-import SelectType from './SelectType';
 import type { ConverterInputProps } from '@interfaces/Converter';
-import './style.css';
+import type { ConverterType } from '@customTypes/App';
+import { DEFAULT_TEMPLATES } from './constants';
+import SelectType from './SelectType';
+import { useTranslation } from 'react-i18next';
 
 export default function ConverterInput({
   labelName,

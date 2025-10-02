@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { setLanguage } from '../../store/slices/languageSlice';
-import { RootState } from '../../store';
 import './style.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { setLanguage } from '../../store/slices/languageSlice';
+import { useTranslation } from 'react-i18next';
 
 export default function LanguageToggler() {
   const dispatch = useDispatch();

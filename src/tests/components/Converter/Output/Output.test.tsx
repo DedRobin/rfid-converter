@@ -1,9 +1,8 @@
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, beforeAll } from 'vitest';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import { beforeAll, describe, expect, it } from 'vitest';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+import Output from '@components/Converter/Output';
 import i18n from 'i18next';
-import { initReactI18next, I18nextProvider } from 'react-i18next';
-
-import Output from '../../../../components/Converter/Output';
 
 // Mock data for the Output component
 const mockData = {

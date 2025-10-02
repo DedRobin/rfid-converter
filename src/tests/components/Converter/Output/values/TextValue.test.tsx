@@ -1,7 +1,7 @@
-import { render, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { fireEvent, render } from '@testing-library/react';
+import CardFormatContext from '@contexts/CardFormat';
 import TextValue from '@components/Converter/Output/values/TextValue';
-import { CardFormatContext } from '@components/Converter/Output/context';
 import mockContextValue from './mockData';
 
 describe('TextValue Component', () => {

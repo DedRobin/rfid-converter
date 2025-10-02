@@ -1,5 +1,5 @@
+import { LanguageState } from '@interfaces/slices';
 import { createSlice } from '@reduxjs/toolkit';
-import { LanguageState } from '../../interfaces/slices';
 
 const initialState: LanguageState = {
   language: 'en',
