@@ -1,5 +1,5 @@
-import type { ConverterType } from '@customTypes/App';
 import type { Fields } from '@interfaces/Converter';
+import type { PositionalNumeralSystem } from '@customTypes/App';
 
 const fromHexToDex = (value: string) => {
   return String(Number.parseInt(value, 16)).padStart(10, '0');
@@ -54,7 +54,7 @@ const convert = {
 } as const;
 
 const updateField = (
-  type: ConverterType,
+  type: PositionalNumeralSystem,
   data: { fields: Fields; value: string }
 ): Fields => {
   const { fields, value } = data;

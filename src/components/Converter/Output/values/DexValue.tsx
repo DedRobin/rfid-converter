@@ -1,23 +1,24 @@
-import './style.css';
 import CardFormatContext from '@contexts/CardFormat';
+import styles from './Values.module.css';
 import { useContext } from 'react';
-
 
 const DexValue = () => {
   const {
-    className,
     handleCopy,
     values: { dex },
+    currentCopiedType,
   } = useContext(CardFormatContext);
 
   return (
     handleCopy &&
     dex && (
-      <div className={`${className}__dex`}>
-        <div className={`${className}__dex-label`}>Deximal</div>
+      <div className={styles.dex}>
+        <div className={styles.dexLabel}>Deximal</div>
         <div
-          className={`${className}__dex-value`}
-          onClick={(e) => handleCopy(e, dex)}
+          className={`${styles.dexValue} ${
+            currentCopiedType === 'dex' ? styles.copied : ''
+          }`}
+          onClick={(e) => handleCopy(e, dex, 'dex')}
         >
           {dex}
         </div>

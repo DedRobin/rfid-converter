@@ -1,5 +1,5 @@
 import './style.css';
-import { ConvertTo } from '@customTypes/App';
+import { ConverterHandler } from '@customTypes/App';
 import ConverterInput from './Input';
 import ConverterOutput from './Output';
 import { defaultFields } from './constants';
@@ -19,7 +19,7 @@ const Converter = () => {
     a.click();
   };
 
-  const convertTo: ConvertTo = ({ value, type }) => {
+  const convertTo: ConverterHandler = ({ value, type }) => {
     const data = { fields, value };
     const updatedFields = updateField(type, data);
 

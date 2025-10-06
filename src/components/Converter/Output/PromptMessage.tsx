@@ -1,13 +1,14 @@
 import CardFormatContext from '@contexts/CardFormat';
+import { PositionalNumeralSystem } from '@customTypes/App';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const PromptMessage = ({
+  currentCopiedType,
   hasConvertedData,
-  isCopied,
 }: {
+  currentCopiedType: PositionalNumeralSystem | null;
   hasConvertedData: boolean;
-  isCopied: boolean;
 }) => {
   const { className } = useContext(CardFormatContext);
   const { t } = useTranslation();
@@ -16,7 +17,7 @@ const PromptMessage = ({
     .split('.')
     .map((stringPart, index) => <p key={index}>{stringPart}</p>);
 
-  if (isCopied) {
+  if (currentCopiedType) {
     return (
       <div className={`${className}__prompt`}>
         <span>{t('output.isCopied')}</span>

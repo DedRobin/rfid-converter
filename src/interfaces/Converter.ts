@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
-import { ConvertTo } from '@customTypes/App';
+import { ConverterHandler } from '@customTypes/App';
 
 interface ConverterInputProps {
-  convertTo: ConvertTo;
+  convertTo: ConverterHandler;
   saveAsCsv: () => void;
 }
 

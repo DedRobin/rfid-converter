@@ -1,7 +1,6 @@
 import { CardFormatContextProps } from './interfaces';
 import { createContext } from 'react';
 
-
 const CardFormatContext = createContext<CardFormatContextProps>({
   className: 'converter-output',
   handleCopy: null,
@@ -10,6 +9,7 @@ const CardFormatContext = createContext<CardFormatContextProps>({
     dex: null,
     hex: null,
   },
+  currentCopiedType: null,
 });
 
 export default CardFormatContext;

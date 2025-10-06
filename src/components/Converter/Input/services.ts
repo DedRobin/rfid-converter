@@ -1,6 +1,6 @@
 import { MAX_DEX_LENGTH, MAX_DEX_VALUE, MAX_TEXT_VALUE } from './constants';
 import { isABCDEF, isNumber } from '@tools/character';
-import { ConverterType } from '@customTypes/App';
+import { PositionalNumeralSystem } from '@customTypes/App';
 
 type InputHandler = ({
   previous,
@@ -10,13 +10,13 @@ type InputHandler = ({
   current: string;
 }) => string;
 
-const isConverterType = (value: string): value is ConverterType => {
+const isConverterType = (value: string): value is PositionalNumeralSystem => {
   return ['text', 'dex', 'hex'].includes(value);
 };
 
 const handleInput = (
   values: { previous: string; current: string },
-  type: ConverterType
+  type: PositionalNumeralSystem
 ) => {
   switch (type) {
     case 'text':

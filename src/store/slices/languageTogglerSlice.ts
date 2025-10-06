@@ -1,4 +1,4 @@
-import { LanguageState } from '@interfaces/slices';
+import { LanguageState } from '@interfaces/LanguageToggler';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: LanguageState = {
