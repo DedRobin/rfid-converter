@@ -6,7 +6,6 @@ interface ToastContextProps {
 }
 
 interface CardFormatContextProps {
-  className: string;
   handleCopy:
     | ((
         e: MouseEvent<HTMLDivElement>,

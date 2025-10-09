@@ -1,23 +1,22 @@
-import './style.css';
 import { FC, MouseEvent, useContext, useRef, useState } from 'react';
 import {
   addCopiedStatus,
   copyToClipboard,
   disableCopiedStatus,
 } from './services';
+import Card from '@shared/UI/Card';
 import CardFormatContext from '@contexts/CardFormat';
 import type { ConverterOutputProps } from '@interfaces/Converter';
 import DexValue from './values/DexValue';
 import HexValue from './values/HexValue';
+import Hint from './HintMessage';
 import { PositionalNumeralSystem } from '@customTypes/App';
-import PromptMessage from './PromptMessage';
 import TextValue from './values/TextValue';
 import ToastContext from '@contexts/Toast';
+import styles from './Output.module.css';
 import { useTranslation } from 'react-i18next';
 
 const ConverterOutput: FC<ConverterOutputProps> = ({ text, dex, hex }) => {
-  const className = 'converter-output';
-
   const { notify } = useContext(ToastContext);
   const { t } = useTranslation();
 
@@ -63,32 +62,27 @@ const ConverterOutput: FC<ConverterOutputProps> = ({ text, dex, hex }) => {
     }
   };
 
+  const cardFormatContextValue = {
+    handleCopy,
+    values: { text, dex, hex },
+    currentCopiedType,
+  };
   const hasConvertedData = !!(hex && dex && text);
 
   return (
-    <div className={className}>
-      <CardFormatContext.Provider
-        value={{
-          className,
-          handleCopy,
-          values: { text, dex, hex },
-          currentCopiedType,
-        }}
-      >
-        <div className={`${className}__card-hole`} />
-        <div className={`${className}__wrapper`}>
-          <PromptMessage
-            currentCopiedType={currentCopiedType}
-            hasConvertedData={hasConvertedData}
-          />
-          <div className={`${className}__values`}>
-            <HexValue />
-            <DexValue />
-            <TextValue />
-          </div>
+    <CardFormatContext.Provider value={cardFormatContextValue}>
+      <Card>
+        <Hint
+          currentCopiedType={currentCopiedType}
+          hasConvertedData={hasConvertedData}
+        />
+        <div className={styles.values}>
+          <HexValue />
+          <DexValue />
+          <TextValue />
         </div>
-      </CardFormatContext.Provider>
-    </div>
+      </Card>
+    </CardFormatContext.Provider>
   );
 };
 
