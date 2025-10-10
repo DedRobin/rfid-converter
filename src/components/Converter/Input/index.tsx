@@ -36,8 +36,13 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
 
       if (isCtrlV) {
         try {
-          const current = await navigator.clipboard.readText();
-          setValue((previous) => handleInput({ previous, current }, type));
+          const valueFromClipboard = await navigator.clipboard.readText();
+          const isValid = validateInputValue(valueFromClipboard);
+
+          setValue(() => {
+            if (!isValid) return '';
+            return valueFromClipboard;
+          });
         } catch (error) {
           const errorMsg = t('input.errors.failToReadFromClipboard');
 
@@ -78,12 +83,23 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
   };
 
   const validateInputValue = (value: string) => {
-    const isValidAsText = type === 'text' && valueIsValid.asText(value);
-    const isValidAsDex = type === 'dex' && valueIsValid.asDex(value);
-    const isValidAsHex = type === 'hex' && valueIsValid.asHex(value);
-    const isValid = isValidAsText || isValidAsDex || isValidAsHex;
+    let isValid = false;
+
+    switch (type) {
+      case 'text':
+        isValid = valueIsValid.asText(value);
+        break;
+      case 'dex':
+        isValid = valueIsValid.asDex(value);
+        break;
+      case 'hex':
+        isValid = valueIsValid.asHex(value);
+        break;
+    }
 
     setInputIsValid(isValid);
+
+    return isValid;
   };
 
   const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {

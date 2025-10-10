@@ -58,7 +58,9 @@ const convert = {
 
 const valueIsValid = {
   asText: (value: string) => REGEX_TEMPLATES.TEXT.test(value),
-  asDex: (value: string) => REGEX_TEMPLATES.DEX.test(value),
+  asDex: (value: string) => {
+    return value.length === 10 && REGEX_TEMPLATES.DEX.test(value);
+  },
   asHex: (value: string) => REGEX_TEMPLATES.HEX.test(value),
 };
 
