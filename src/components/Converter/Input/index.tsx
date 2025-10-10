@@ -11,11 +11,13 @@ import {
 } from 'react';
 import { handleInput, isConverterType } from './services';
 import type { ConverterInputProps } from '@interfaces/Converter';
-import type { ConverterType } from '@customTypes/App';
 import { DEFAULT_TEMPLATES } from './constants';
+import type { PositionalNumeralSystem } from '@customTypes/App';
 import SelectType from './SelectType';
 import ToastContext from '@contexts/Toast';
+import styles from './Input.module.css';
 import { useTranslation } from 'react-i18next';
+import { valueIsValid } from '../services';
 
 const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
   const className = useMemo(() => 'converter-input', []);
@@ -24,7 +26,8 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
   const { notify } = useContext(ToastContext);
   const [value, setValue] = useState('');
   const [placeholder, setPlaceholder] = useState(templates.text);
-  const [type, setType] = useState<ConverterType>('text');
+  const [type, setType] = useState<PositionalNumeralSystem>('text');
+  const [inputIsValid, setInputIsValid] = useState(false);
   const { t } = useTranslation();
 
   const handleCtrlV = useCallback(
@@ -34,7 +37,6 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
       if (isCtrlV) {
         try {
           const current = await navigator.clipboard.readText();
-
           setValue((previous) => handleInput({ previous, current }, type));
         } catch (error) {
           const errorMsg = t('input.errors.failToReadFromClipboard');
@@ -56,22 +58,42 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
     [convertTo, type, value]
   );
 
+  const clearInput = () => {
+    setValue('');
+    setInputIsValid(false);
+  };
+
   const onConvertClick: MouseEventHandler<HTMLButtonElement> = () =>
     convertTo({ value, type });
-  const onClearClick: MouseEventHandler<HTMLButtonElement> = () => setValue('');
+
+  const onClearClick: MouseEventHandler<HTMLButtonElement> = () => clearInput();
+
   const onSelectTypeChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
     const currentType = event.target.value;
     if (isConverterType(currentType)) {
       setType(currentType);
       setPlaceholder(templates[currentType]);
-      setValue('');
+      clearInput();
     }
   };
+
+  const validateInputValue = (value: string) => {
+    const isValidAsText = type === 'text' && valueIsValid.asText(value);
+    const isValidAsDex = type === 'dex' && valueIsValid.asDex(value);
+    const isValidAsHex = type === 'hex' && valueIsValid.asHex(value);
+    const isValid = isValidAsText || isValidAsDex || isValidAsHex;
+
+    setInputIsValid(isValid);
+  };
+
   const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const current = event.target.value;
 
     setValue((previous) => {
       const updatedValue = handleInput({ previous, current }, type);
+
+      validateInputValue(updatedValue);
+
       return updatedValue;
     });
   };
@@ -99,7 +121,10 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
         />
         <input
           autoFocus={true}
-          className={`${className}__input`}
+          // className={`${className}__input`}
+          className={`${styles.inputValue} ${
+            !inputIsValid ? styles.notValid : ''
+          }`}
           id="Text"
           onChange={onInputChange}
           placeholder={placeholder}
@@ -116,6 +141,7 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
         </button>
         <button
           className="field__button--convert"
+          disabled={!inputIsValid}
           onClick={onConvertClick}
           type="button"
         >

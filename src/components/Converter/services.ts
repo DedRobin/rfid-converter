@@ -1,5 +1,6 @@
 import type { Fields } from '@interfaces/Converter';
 import type { PositionalNumeralSystem } from '@customTypes/App';
+import { REGEX_TEMPLATES } from './constants';
 
 const fromHexToDex = (value: string) => {
   return String(Number.parseInt(value, 16)).padStart(10, '0');
@@ -28,10 +29,12 @@ const fromDexToText = (value: string) => {
 
 const fromTextToHex = (value: string) => {
   const [beforeText, afterText] = value.split(',');
-  const beforeDex = Number(beforeText);
-  const afterDex = Number(afterText);
-  if (Number.isNaN(beforeDex) || Number.isNaN(afterDex))
-    throw new Error('Got NaN');
+  let beforeDex = Number(beforeText);
+  let afterDex = Number(afterText);
+
+  if (Number.isNaN(beforeDex)) beforeDex = 0;
+  if (Number.isNaN(afterDex)) afterDex = 0;
+
   const beforeHex = beforeDex.toString(16).padStart(2, '0');
   const afterHex = afterDex.toString(16).padStart(4, '0');
 
@@ -52,6 +55,12 @@ const convert = {
   fromTextToDex,
   fromTextToHex,
 } as const;
+
+const valueIsValid = {
+  asText: (value: string) => REGEX_TEMPLATES.TEXT.test(value),
+  asDex: (value: string) => REGEX_TEMPLATES.DEX.test(value),
+  asHex: (value: string) => REGEX_TEMPLATES.HEX.test(value),
+};
 
 const updateField = (
   type: PositionalNumeralSystem,
@@ -83,4 +92,4 @@ const updateField = (
   return { ...fields, text, dex, hex };
 };
 
-export { convert, updateField };
+export { convert, updateField, valueIsValid };
