@@ -1,10 +1,13 @@
-type ConverterType = 'text' | 'dex' | 'hex';
-type ConvertToFunction = ({
+type PositionalNumeralSystem = 'text' | 'dex' | 'hex';
+
+type ConverterHandler = ({
   value,
   type,
 }: {
   value: string;
-  type: ConverterType;
+  type: PositionalNumeralSystem;
 }) => void;
 
-export type { ConverterType, ConvertToFunction as ConvertTo };
+type NotifyType = 'error' | 'default';
+
+export type { PositionalNumeralSystem, ConverterHandler, NotifyType };

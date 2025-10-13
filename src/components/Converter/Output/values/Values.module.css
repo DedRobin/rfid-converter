@@ -1,0 +1,64 @@
+.text,
+.dex,
+.hex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.textValue,
+.dexValue,
+.hexValue {
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &::before {
+    content: '✓';
+    position: absolute;
+    visibility: hidden;
+  }
+
+  &:hover {
+    color: red;
+  }
+}
+
+.copied,
+.copied:hover {
+  color: rgba(0, 128, 0, 1);
+
+  &::before {
+    visibility: visible;
+  }
+}
+
+.textValue {
+  anchor-name: --card-number-text;
+
+  &::before {
+    right: anchor(--card-number-text left);
+  }
+}
+.dexValue {
+  anchor-name: --card-number-dex;
+
+  &::before {
+    right: anchor(--card-number-dex left);
+  }
+}
+.hexValue {
+  anchor-name: --card-number-hex;
+
+  &::before {
+    right: anchor(--card-number-hex left);
+  }
+}
+
+.textLabel,
+.dexLabel,
+.hexLabel {
+  font-size: 0.8em;
+  font-style: italic;
+  font-weight: bolder;
+}

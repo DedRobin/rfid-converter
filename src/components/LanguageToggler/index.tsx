@@ -1,24 +1,31 @@
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { setLanguage } from '../../store/slices/languageSlice';
-import { RootState } from '../../store';
 import './style.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { languageSelector } from '@store/selectors/languageToggler';
+import { setLanguage } from '../../store/slices/languageTogglerSlice';
+import { useTranslation } from 'react-i18next';
 
-export default function LanguageToggler() {
+const LanguageToggler = () => {
   const dispatch = useDispatch();
-  const { language } = useSelector((state: RootState) => state.language);
+  const { language } = useSelector(languageSelector);
   const { t } = useTranslation();
 
-  const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const changeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedLanguage = event.target.value;
 
     dispatch(setLanguage(selectedLanguage));
   };
 
   return (
-    <select className="language-toggler" value={language} onChange={onChange}>
+    <select
+      className="language-toggler"
+      name="language-toggler"
+      onChange={changeLanguage}
+      value={language}
+    >
       <option value="en">{t('languageToggler.en')}</option>
       <option value="ru">{t('languageToggler.ru')}</option>
     </select>
   );
-}
+};
+
+export default LanguageToggler;

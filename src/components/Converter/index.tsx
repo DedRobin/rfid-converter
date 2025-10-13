@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import ConverterInput from './Input';
-import { ConvertTo } from '../../types/App';
-import ConverterOutput from './Output';
-import { updateField } from './services';
-import { defaultFields } from './constants';
 import './style.css';
+import { ConverterHandler } from '@customTypes/App';
+import ConverterInput from './Input';
+import ConverterOutput from './Output';
+import { defaultFields } from './constants';
+import { updateField } from './services';
+import { useState } from 'react';
 
-export default function Converter() {
+const Converter = () => {
   const [fields, setFields] = useState(defaultFields);
 
   const saveAsCsv = () => {
     const csvContent = `text,dex,hex\n"${fields.text}","${fields.dex}","${fields.hex}"`;
-    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -19,7 +19,7 @@ export default function Converter() {
     a.click();
   };
 
-  const convertTo: ConvertTo = ({ value, type }) => {
+  const convertTo: ConverterHandler = ({ value, type }) => {
     const data = { fields, value };
     const updatedFields = updateField(type, data);
 
@@ -31,12 +31,10 @@ export default function Converter() {
       className="converted-form"
       onSubmit={(event) => event.preventDefault()}
     >
-      <ConverterInput
-        labelName="Text"
-        convertTo={convertTo}
-        saveAsCsv={saveAsCsv}
-      />
-      <ConverterOutput text={fields.text} dex={fields.dex} hex={fields.hex} />
+      <ConverterInput convertTo={convertTo} saveAsCsv={saveAsCsv} />
+      <ConverterOutput dex={fields.dex} hex={fields.hex} text={fields.text} />
     </form>
   );
-}
+};
+
+export default Converter;

@@ -1,9 +1,8 @@
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, beforeAll } from 'vitest';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import { beforeAll, describe, expect, it } from 'vitest';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+import Output from '@components/Converter/Output';
 import i18n from 'i18next';
-import { initReactI18next, I18nextProvider } from 'react-i18next';
-
-import Output from '../../../../components/Converter/Output';
 
 // Mock data for the Output component
 const mockData = {
@@ -16,7 +15,7 @@ const resources = {
   en: {
     translation: {
       output: {
-        initMasg: 'Test message 1',
+        initMsg: 'Test message 1',
         afterConvertMsg: 'Test message 2',
         isCopied: 'Copied!',
       },
@@ -25,7 +24,7 @@ const resources = {
   ru: {
     translation: {
       output: {
-        initMasg: 'Тестовое сообщение 1',
+        initMsg: 'Тестовое сообщение 1',
         afterConvertMsg: 'Тестовое сообщение 2',
         isCopied: 'Скопировано!',
       },
@@ -79,11 +78,11 @@ describe('Output Component', () => {
   it('should display the initial message', () => {
     const { getByText, container } = render(
       <I18nextProvider i18n={i18n}>
-        <Output text="" dex="" hex="" />
+        <Output dex="" hex="" text="" />
       </I18nextProvider>
     );
 
-    const initialMessage = getByText(resources.en.translation.output.initMasg);
+    const initialMessage = getByText(resources.en.translation.output.initMsg);
 
     expect(initialMessage).toBeInTheDocument();
 
@@ -92,7 +91,7 @@ describe('Output Component', () => {
       fireEvent.change(languageToggler, { target: { value: 'ru' } });
 
       const initialMessageRu = getByText(
-        resources.ru.translation.output.initMasg
+        resources.ru.translation.output.initMsg
       );
       expect(initialMessageRu).toBeInTheDocument();
     }

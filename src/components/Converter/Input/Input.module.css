@@ -1,0 +1,9 @@
+.inputValue {
+  border-width: 0px;
+  padding: 12px;
+  border: 1px solid #ccc;
+}
+
+.notValid {
+  color: red;
+}

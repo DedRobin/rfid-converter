@@ -1,57 +1,117 @@
+import './style.css';
 import {
   ChangeEventHandler,
+  FC,
   MouseEventHandler,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useState,
 } from 'react';
-import type { ConverterType } from '@customTypes/App';
-import { handleClipboardInput, handleInput, isConverterType } from './services';
-import { DEFAULT_TEMPLATES } from './constants';
-import { useTranslation } from 'react-i18next';
-import SelectType from './SelectType';
+import { handleInput, isConverterType } from './services';
 import type { ConverterInputProps } from '@interfaces/Converter';
-import './style.css';
+import { DEFAULT_TEMPLATES } from './constants';
+import type { PositionalNumeralSystem } from '@customTypes/App';
+import SelectType from './SelectType';
+import ToastContext from '@contexts/Toast';
+import styles from './Input.module.css';
+import { useTranslation } from 'react-i18next';
+import { valueIsValid } from '../services';
 
-export default function ConverterInput({
-  labelName,
-  convertTo,
-  saveAsCsv,
-}: ConverterInputProps) {
+const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
   const className = useMemo(() => 'converter-input', []);
   const templates = useMemo(() => DEFAULT_TEMPLATES, []);
 
+  const { notify } = useContext(ToastContext);
   const [value, setValue] = useState('');
   const [placeholder, setPlaceholder] = useState(templates.text);
-  const [type, setType] = useState<ConverterType>('text');
+  const [type, setType] = useState<PositionalNumeralSystem>('text');
+  const [inputIsValid, setInputIsValid] = useState(false);
   const { t } = useTranslation();
 
-  const insertDataFromClipboard = useCallback(
+  const handleCtrlV = useCallback(
+    async (event: KeyboardEvent) => {
+      const isCtrlV = event.ctrlKey && event.code === 'KeyV';
+
+      if (isCtrlV) {
+        try {
+          const valueFromClipboard = await navigator.clipboard.readText();
+          const isValid = validateInputValue(valueFromClipboard);
+
+          setValue(() => {
+            if (!isValid) return '';
+            return valueFromClipboard;
+          });
+        } catch (error) {
+          const errorMsg = t('input.errors.failToReadFromClipboard');
+
+          notify(errorMsg, 'error');
+          console.error(errorMsg, error);
+        }
+      }
+    },
+    [type, t, notify]
+  );
+
+  const handleEnterKeyword = useCallback(
     (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.code === 'KeyV')
-        handleClipboardInput(type, setValue);
       if (event.key === 'Enter') {
         convertTo({ value, type });
       }
     },
-    [type, value, convertTo]
+    [convertTo, type, value]
   );
+
+  const clearInput = () => {
+    setValue('');
+    setInputIsValid(false);
+  };
 
   const onConvertClick: MouseEventHandler<HTMLButtonElement> = () =>
     convertTo({ value, type });
-  const onClearClick: MouseEventHandler<HTMLButtonElement> = () => setValue('');
+
+  const onClearClick: MouseEventHandler<HTMLButtonElement> = () => clearInput();
+
   const onSelectTypeChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
     const currentType = event.target.value;
     if (isConverterType(currentType)) {
       setType(currentType);
       setPlaceholder(templates[currentType]);
-      setValue('');
+      clearInput();
     }
   };
+
+  const validateInputValue = (value: string) => {
+    let isValid = false;
+
+    switch (type) {
+      case 'text':
+        isValid = valueIsValid.asText(value);
+        break;
+      case 'dex':
+        isValid = valueIsValid.asDex(value);
+        break;
+      case 'hex':
+        isValid = valueIsValid.asHex(value);
+        break;
+    }
+
+    setInputIsValid(isValid);
+
+    return isValid;
+  };
+
   const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const { value } = event.target;
-    handleInput(value, type, setValue);
+    const current = event.target.value;
+
+    setValue((previous) => {
+      const updatedValue = handleInput({ previous, current }, type);
+
+      validateInputValue(updatedValue);
+
+      return updatedValue;
+    });
   };
   const onSaveClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -59,12 +119,14 @@ export default function ConverterInput({
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', insertDataFromClipboard);
+    window.addEventListener('keydown', handleCtrlV);
+    window.addEventListener('keydown', handleEnterKeyword);
 
     return () => {
-      window.removeEventListener('keydown', insertDataFromClipboard);
+      window.removeEventListener('keydown', handleCtrlV);
+      window.removeEventListener('keydown', handleEnterKeyword);
     };
-  }, [insertDataFromClipboard]);
+  }, [handleEnterKeyword, handleCtrlV]);
 
   return (
     <div className={className}>
@@ -74,12 +136,15 @@ export default function ConverterInput({
           onSelectTypeChange={onSelectTypeChange}
         />
         <input
-          id={labelName}
-          className={`${className}__input`}
-          value={value}
-          placeholder={placeholder}
-          onChange={onInputChange}
           autoFocus={true}
+          // className={`${className}__input`}
+          className={`${styles.inputValue} ${
+            !inputIsValid ? styles.notValid : ''
+          }`}
+          id="Text"
+          onChange={onInputChange}
+          placeholder={placeholder}
+          value={value}
         />
       </div>
       <div className={`${className}__buttons`}>
@@ -92,6 +157,7 @@ export default function ConverterInput({
         </button>
         <button
           className="field__button--convert"
+          disabled={!inputIsValid}
           onClick={onConvertClick}
           type="button"
         >
@@ -107,4 +173,6 @@ export default function ConverterInput({
       </div>
     </div>
   );
-}
+};
+
+export default ConverterInput;

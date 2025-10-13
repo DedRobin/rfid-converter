@@ -1,9 +1,7 @@
+import { FC } from 'react';
 import type { SelectTypeProps } from '@interfaces/Converter';
 
-export default function SelectType({
-  className,
-  onSelectTypeChange,
-}: SelectTypeProps) {
+const SelectType: FC<SelectTypeProps> = ({ className, onSelectTypeChange }) => {
   return (
     <select className={`${className}__select`} onChange={onSelectTypeChange}>
       <option className="select__option" value="text">
@@ -17,4 +15,6 @@ export default function SelectType({
       </option>
     </select>
   );
-}
+};
+
+export default SelectType;

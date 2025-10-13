@@ -1,7 +1,6 @@
-import { render, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi, afterEach } from 'vitest';
-import SelectType from '../../../../components/Converter/Input/SelectType';
-
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { fireEvent, render } from '@testing-library/react';
+import SelectType from '@components/Converter/Input/SelectType';
 
 const mockProps = {
   className: 'select',
@@ -33,5 +32,5 @@ describe('SelectType Component', () => {
 
     const selectElement = getByRole('combobox') as HTMLSelectElement;
     expect(selectElement.options).toHaveLength(3);
-  });  
+  });
 });

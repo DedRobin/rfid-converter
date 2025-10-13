@@ -1,78 +1,89 @@
-import { memo, MouseEvent, useRef, useState } from 'react';
+import { FC, MouseEvent, useContext, useRef, useState } from 'react';
+import {
+  addCopiedStatus,
+  copyToClipboard,
+  disableCopiedStatus,
+} from './services';
+import Card from '@shared/UI/Card';
+import CardFormatContext from '@contexts/CardFormat';
 import type { ConverterOutputProps } from '@interfaces/Converter';
-
-import { CardFormatContext } from './context';
-import TextValue from './values/TextValue';
 import DexValue from './values/DexValue';
 import HexValue from './values/HexValue';
-import PromptMessage from './PromptMessage';
-import './style.css';
+import Hint from './HintMessage';
+import { PositionalNumeralSystem } from '@customTypes/App';
+import TextValue from './values/TextValue';
+import ToastContext from '@contexts/Toast';
+import styles from './Output.module.css';
+import { useTranslation } from 'react-i18next';
 
-const ConverterOutput = memo(({ text, dex, hex }: ConverterOutputProps) => {
-  const className = 'converter-output';
+const ConverterOutput: FC<ConverterOutputProps> = ({ text, dex, hex }) => {
+  const { notify } = useContext(ToastContext);
+  const { t } = useTranslation();
 
-  const [isCopied, setIsCopied] = useState(false);
+  const [currentCopiedType, setCUrrentCopiedType] =
+    useState<PositionalNumeralSystem | null>(null);
 
   const copyTimerId = useRef<NodeJS.Timeout | null>(null);
   const currentValue = useRef<HTMLDivElement | null>(null);
 
-  const handleCopy = async (e: MouseEvent<HTMLDivElement>, value: string) => {
+  const handleCopy = async (
+    e: MouseEvent<HTMLDivElement>,
+    value: string,
+    type: PositionalNumeralSystem | null
+  ) => {
     const element = e.target;
     if (!(element instanceof HTMLDivElement)) return;
 
     try {
-      await navigator.clipboard.writeText(value);
+      await copyToClipboard(value);
 
-      setIsCopied(() => {
+      setCUrrentCopiedType(() => {
         if (copyTimerId.current) {
           clearTimeout(copyTimerId.current);
-          if (currentValue.current)
-            currentValue.current.classList.remove('copied');
+
+          if (currentValue.current) disableCopiedStatus(currentValue.current);
         }
 
-        element.classList.add('copied');
+        addCopiedStatus(element);
         currentValue.current = element;
 
         copyTimerId.current = setTimeout(() => {
-          setIsCopied(() => {
-            element.classList.remove('copied');
-            return false;
+          setCUrrentCopiedType(() => {
+            disableCopiedStatus(element);
+            return null;
           });
         }, 2000);
 
-        return true;
+        return type;
       });
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      notify(t('output.errors.failToCopy'), 'error');
+      console.error(err);
     }
   };
 
+  const cardFormatContextValue = {
+    handleCopy,
+    values: { text, dex, hex },
+    currentCopiedType,
+  };
   const hasConvertedData = !!(hex && dex && text);
 
   return (
-    <div className={className}>
-      <CardFormatContext.Provider
-        value={{ className, handleCopy, values: { text, dex, hex } }}
-      >
-        <div className={`${className}__card-hole`}></div>
-        <div className={`${className}__wrapper`}>
-          {
-            <>
-              <PromptMessage
-                hasConvertedData={hasConvertedData}
-                isCopied={isCopied}
-              />
-              <div className={`${className}__values`}>
-                <HexValue />
-                <DexValue />
-                <TextValue />
-              </div>
-            </>
-          }
+    <CardFormatContext.Provider value={cardFormatContextValue}>
+      <Card>
+        <Hint
+          currentCopiedType={currentCopiedType}
+          hasConvertedData={hasConvertedData}
+        />
+        <div className={styles.values}>
+          <HexValue />
+          <DexValue />
+          <TextValue />
         </div>
-      </CardFormatContext.Provider>
-    </div>
+      </Card>
+    </CardFormatContext.Provider>
   );
-});
+};
 
 export default ConverterOutput;

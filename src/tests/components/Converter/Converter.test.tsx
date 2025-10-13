@@ -1,9 +1,9 @@
+import { describe, expect, it } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import Converter from '../../../components/Converter/index';
-import i18n from '../../../i18n';
+import Converter from '@components/Converter';
 import { I18nextProvider } from 'react-i18next';
 import cardNumbers from '../../mock/cardNumbers.json';
+import i18n from '@shared/i18n';
 
 describe('Converter Component', () => {
   it('should render the Converter component', () => {

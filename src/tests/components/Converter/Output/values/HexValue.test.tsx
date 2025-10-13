@@ -1,33 +1,21 @@
-import { render, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { CardFormatContext } from '@components/Converter/Output/context';
-import mockContextValue from './mockData';
+import { describe, expect, it } from 'vitest';
 import HexValue from '@components/Converter/Output/values/HexValue';
+import { fireEvent } from '@testing-library/react';
+import mockContextValue from './mockData';
+import { renderWith } from './customRender';
 
 describe('HexValue Component', () => {
   it('should render the HexValue component', () => {
-    const { getByText } = render(
-      <CardFormatContext.Provider value={mockContextValue}>
-        <HexValue />
-      </CardFormatContext.Provider>
-    );
+    const { getByText } = renderWith(<HexValue />, mockContextValue);
 
-    expect(getByText(mockContextValue.values.hex)).toBeInTheDocument();
+    expect(getByText(mockContextValue.values.hex!)).toBeInTheDocument();
   });
   it('"handleCopy" in  the HexValue component should be called', () => {
-    const mockHandleCopy = vi.fn();
+    const { getByText } = renderWith(<HexValue />, mockContextValue);
 
-    const { getByText } = render(
-      <CardFormatContext.Provider
-        value={{ ...mockContextValue, handleCopy: mockHandleCopy }}
-      >
-        <HexValue />
-      </CardFormatContext.Provider>
-    );
-
-    const value = getByText(mockContextValue.values.hex);
+    const value = getByText(mockContextValue.values.hex!);
     fireEvent.click(value);
 
-    expect(mockHandleCopy).toHaveBeenCalled();
+    expect(mockContextValue.handleCopy).toHaveBeenCalled();
   });
 });
