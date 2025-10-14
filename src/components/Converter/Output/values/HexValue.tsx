@@ -1,6 +1,8 @@
-import CardFormatContext from '@contexts/CardFormat';
-import styles from './Values.module.css';
 import { useContext } from 'react';
+
+import CardFormatContext from '@contexts/CardFormat';
+
+import styles from './Values.module.css';
 
 const HexValue = () => {
   const {

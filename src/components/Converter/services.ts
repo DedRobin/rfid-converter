@@ -1,5 +1,6 @@
-import type { Fields } from '@interfaces/Converter';
 import type { PositionalNumeralSystem } from '@customTypes/App';
+import type { Fields } from '@interfaces/Converter';
+
 import { REGEX_TEMPLATES } from './constants';
 
 const fromHexToDex = (value: string) => {

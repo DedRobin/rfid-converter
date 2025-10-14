@@ -1,8 +1,9 @@
-import { describe, expect, it } from 'vitest';
 import HexValue from '@components/Converter/Output/values/HexValue';
 import { fireEvent } from '@testing-library/react';
-import mockContextValue from './mockData';
+import { describe, expect, it } from 'vitest';
+
 import { renderWith } from './customRender';
+import mockContextValue from './mockData';
 
 describe('HexValue Component', () => {
   it('should render the HexValue component', () => {

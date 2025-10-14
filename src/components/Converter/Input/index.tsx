@@ -9,15 +9,18 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { handleInput, isConverterType } from './services';
-import type { ConverterInputProps } from '@interfaces/Converter';
-import { DEFAULT_TEMPLATES } from './constants';
-import type { PositionalNumeralSystem } from '@customTypes/App';
-import SelectType from './SelectType';
+
 import ToastContext from '@contexts/Toast';
-import styles from './Input.module.css';
+import type { PositionalNumeralSystem } from '@customTypes/App';
+import type { ConverterInputProps } from '@interfaces/Converter';
 import { useTranslation } from 'react-i18next';
+
 import { valueIsValid } from '../services';
+
+import CardTypes from './CardTypes';
+import { DEFAULT_TEMPLATES } from './constants';
+import styles from './Input.module.css';
+import { handleInput } from './services';
 
 const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
   const className = useMemo(() => 'converter-input', []);
@@ -29,6 +32,29 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
   const [type, setType] = useState<PositionalNumeralSystem>('text');
   const [inputIsValid, setInputIsValid] = useState(false);
   const { t } = useTranslation();
+
+  const validateInputValue = useCallback(
+    (value: string) => {
+      let isValid = false;
+
+      switch (type) {
+        case 'text':
+          isValid = valueIsValid.asText(value);
+          break;
+        case 'dex':
+          isValid = valueIsValid.asDex(value);
+          break;
+        case 'hex':
+          isValid = valueIsValid.asHex(value);
+          break;
+      }
+
+      setInputIsValid(isValid);
+
+      return isValid;
+    },
+    [type]
+  );
 
   const handleCtrlV = useCallback(
     async (event: KeyboardEvent) => {
@@ -51,7 +77,7 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
         }
       }
     },
-    [type, t, notify]
+    [validateInputValue, t, notify]
   );
 
   const handleEnterKeyword = useCallback(
@@ -73,33 +99,10 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
 
   const onClearClick: MouseEventHandler<HTMLButtonElement> = () => clearInput();
 
-  const onSelectTypeChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
-    const currentType = event.target.value;
-    if (isConverterType(currentType)) {
-      setType(currentType);
-      setPlaceholder(templates[currentType]);
-      clearInput();
-    }
-  };
-
-  const validateInputValue = (value: string) => {
-    let isValid = false;
-
-    switch (type) {
-      case 'text':
-        isValid = valueIsValid.asText(value);
-        break;
-      case 'dex':
-        isValid = valueIsValid.asDex(value);
-        break;
-      case 'hex':
-        isValid = valueIsValid.asHex(value);
-        break;
-    }
-
-    setInputIsValid(isValid);
-
-    return isValid;
+  const changeType = (currentType: PositionalNumeralSystem) => {
+    setType(currentType);
+    setPlaceholder(templates[currentType]);
+    clearInput();
   };
 
   const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -130,14 +133,10 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
 
   return (
     <div className={className}>
+      <CardTypes changeType={changeType} />
       <div className={`${className}__value`}>
-        <SelectType
-          className={className}
-          onSelectTypeChange={onSelectTypeChange}
-        />
         <input
           autoFocus={true}
-          // className={`${className}__input`}
           className={`${styles.inputValue} ${
             !inputIsValid ? styles.notValid : ''
           }`}

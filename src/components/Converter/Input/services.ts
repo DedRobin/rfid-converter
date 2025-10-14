@@ -1,6 +1,7 @@
-import { MAX_DEX_LENGTH, MAX_DEX_VALUE, MAX_TEXT_VALUE } from './constants';
-import { isABCDEF, isNumber } from '@tools/character';
 import { PositionalNumeralSystem } from '@customTypes/App';
+import { isABCDEF, isNumber } from '@tools/character';
+
+import { MAX_DEX_LENGTH, MAX_DEX_VALUE, MAX_TEXT_VALUE } from './constants';
 
 type InputHandler = ({
   previous,
@@ -10,7 +11,9 @@ type InputHandler = ({
   current: string;
 }) => string;
 
-const isConverterType = (value: string): value is PositionalNumeralSystem => {
+const isPositionalNumeralSystemType = (
+  value: string
+): value is PositionalNumeralSystem => {
   return ['text', 'dex', 'hex'].includes(value);
 };
 
@@ -77,4 +80,4 @@ const returnAsHex: InputHandler = ({ previous, current }) => {
   return current.toUpperCase();
 };
 
-export { isConverterType, handleInput };
+export { isPositionalNumeralSystemType, handleInput };

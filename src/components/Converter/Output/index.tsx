@@ -1,20 +1,23 @@
 import { FC, MouseEvent, useContext, useRef, useState } from 'react';
+
+import CardFormatContext from '@contexts/CardFormat';
+import ToastContext from '@contexts/Toast';
+import { PositionalNumeralSystem } from '@customTypes/App';
+import type { ConverterOutputProps } from '@interfaces/Converter';
+import Card from '@shared/UI/Card';
+import { useTranslation } from 'react-i18next';
+
+import Hint from './HintMessage';
+import styles from './Output.module.css';
 import {
   addCopiedStatus,
   copyToClipboard,
   disableCopiedStatus,
 } from './services';
-import Card from '@shared/UI/Card';
-import CardFormatContext from '@contexts/CardFormat';
-import type { ConverterOutputProps } from '@interfaces/Converter';
 import DexValue from './values/DexValue';
 import HexValue from './values/HexValue';
-import Hint from './HintMessage';
-import { PositionalNumeralSystem } from '@customTypes/App';
 import TextValue from './values/TextValue';
-import ToastContext from '@contexts/Toast';
-import styles from './Output.module.css';
-import { useTranslation } from 'react-i18next';
+
 
 const ConverterOutput: FC<ConverterOutputProps> = ({ text, dex, hex }) => {
   const { notify } = useContext(ToastContext);

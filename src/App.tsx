@@ -1,14 +1,15 @@
 import './App.css';
-import { ToastContainer, ToastOptions, toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
+
 import Converter from '@components/Converter';
 import LanguageToggler from '@components/LanguageToggler';
-import Loader from '@shared/UI/Loader';
-import { NotifyType } from '@customTypes/App';
-import { RootState } from '@store/index';
 import ToastContext from '@contexts/Toast';
-import { useSelector } from 'react-redux';
+import { NotifyType } from '@customTypes/App';
+import Loader from '@shared/UI/Loader';
+import { RootState } from '@store/index';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { ToastContainer, ToastOptions, toast } from 'react-toastify';
 
 const App = () => {
   const { language } = useSelector((state: RootState) => state.language);

@@ -1,8 +1,8 @@
-import { describe, expect, it, vi } from 'vitest';
-import { fireEvent, render } from '@testing-library/react';
 import ConverterInput from '@components/Converter/Input';
-import { I18nextProvider } from 'react-i18next';
 import i18n from '@shared/i18n';
+import { fireEvent, render } from '@testing-library/react';
+import { I18nextProvider } from 'react-i18next';
+import { describe, expect, it, vi } from 'vitest';
 
 const mockProps = {
   labelName: 'test-label',

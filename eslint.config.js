@@ -1,14 +1,20 @@
-import globals from 'globals';
 import js from '@eslint/js';
+import importPlugin from 'eslint-plugin-import';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   { ignores: ['dist'] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript,
+    ],
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
     plugins: {
       react,
@@ -16,6 +22,7 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
     },
     languageOptions: {
+      parser: tseslint.parser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -35,7 +42,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'sort-imports': 'error',
+      // 'sort-imports': 'error',
       'react/prefer-stateless-function': 'error',
       'react/button-has-type': 'error',
       'react/no-unused-prop-types': 'error',
@@ -74,6 +81,38 @@ export default tseslint.config(
       'react/react-in-jsx-scope': 'off',
       'react/jsx-one-expression-per-line': 'off',
       'react/prop-types': 'off',
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin', // Node.js built-in modules
+            'external', // Third-party packages
+            'internal', // Project-specific modules (aliased paths)
+            'parent', // Relative imports from parent directories
+            'sibling', // Relative imports from sibling directories
+            'index', // Relative imports from the current directory's index file
+          ],
+          pathGroups: [
+            {
+              pattern: 'react',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '@/**', // Example for internal aliases
+              group: 'internal',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['react'],
+          'newlines-between': 'always', // Enforce newlines between groups
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
+      'import/no-unresolved': 'off',
+      'import/no-named-as-default-member': 'off',
     },
   }
 );
