@@ -1,13 +1,12 @@
-import './style.css';
-import React from 'react';
+import { FC } from 'react';
 
-const Loader: React.FC = () => {
-  return (
-    <div className="loader">
-      <div className="double-bounce1" />
-      <div className="double-bounce2" />
-    </div>
-  );
-};
+import styles from './Loader.module.css';
+
+const Loader: FC = () => (
+  <div className={styles.loader}>
+    <div className={styles.doubleBounceOne} />
+    <div className={styles.doubleBounceTwo} />
+  </div>
+);
 
 export default Loader;

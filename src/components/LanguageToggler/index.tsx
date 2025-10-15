@@ -1,10 +1,9 @@
-import './style.css';
 import { languageSelector } from '@store/selectors/languageToggler';
+import { setLanguage } from '@store/slices/languageTogglerSlice';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setLanguage } from '../../store/slices/languageTogglerSlice';
-
+import styles from './LanguageToffler.module.css';
 
 const LanguageToggler = () => {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const LanguageToggler = () => {
 
   return (
     <select
-      className="language-toggler"
+      className={styles.languageToggler}
       name="language-toggler"
       onChange={changeLanguage}
       value={language}

@@ -7,7 +7,6 @@ import { describe, expect, it } from 'vitest';
 
 import LanguageToggler from '../../components/LanguageToggler/index';
 
-
 describe('LanguageToggler Component', () => {
   it('should render the LanguageToggler component', () => {
     render(
@@ -33,7 +32,6 @@ describe('LanguageToggler Component', () => {
     );
 
     const selectElement = screen.getByRole('combobox');
-    expect(selectElement).toHaveClass('language-toggler');
     expect(selectElement).toHaveValue('en');
   });
 

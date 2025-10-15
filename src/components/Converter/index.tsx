@@ -1,9 +1,9 @@
-import './style.css';
 import { useState } from 'react';
 
 import { ConverterHandler } from '@customTypes/App';
 
 import { defaultFields } from './constants';
+import styles from './Converter.module.css';
 import ConverterInput from './Input';
 import ConverterOutput from './Output';
 import { updateField } from './services';
@@ -29,10 +29,7 @@ const Converter = () => {
   };
 
   return (
-    <form
-      className="converted-form"
-      onSubmit={(event) => event.preventDefault()}
-    >
+    <form className={styles.form} onSubmit={(event) => event.preventDefault()}>
       <ConverterInput convertTo={convertTo} saveAsCsv={saveAsCsv} />
       <ConverterOutput dex={fields.dex} hex={fields.hex} text={fields.text} />
     </form>
