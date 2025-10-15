@@ -6,7 +6,7 @@ const mockProps = {
   changeType: vi.fn(),
 };
 
-describe('SelectType Component', () => {
+describe('CardTypes Component', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
