@@ -1,8 +1,9 @@
-import { describe, expect, it } from 'vitest';
 import DexValue from '@components/Converter/Output/values/DexValue';
 import { fireEvent } from '@testing-library/react';
-import mockContextValue from './mockData';
+import { describe, expect, it } from 'vitest';
+
 import { renderWith } from './customRender';
+import mockContextValue from './mockData';
 
 describe('DexValue Component', () => {
   it('should render the DexValue component', () => {

@@ -1,5 +1,6 @@
-import { CardFormatContextProps } from './interfaces';
 import { createContext } from 'react';
+
+import { CardFormatContextProps } from './interfaces';
 
 const CardFormatContext = createContext<CardFormatContextProps>({
   handleCopy: null,

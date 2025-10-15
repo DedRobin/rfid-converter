@@ -1,8 +1,10 @@
 import './style.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { languageSelector } from '@store/selectors/languageToggler';
-import { setLanguage } from '../../store/slices/languageTogglerSlice';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setLanguage } from '../../store/slices/languageTogglerSlice';
+
 
 const LanguageToggler = () => {
   const dispatch = useDispatch();

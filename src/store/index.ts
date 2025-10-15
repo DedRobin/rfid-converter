@@ -1,7 +1,9 @@
-import { persistReducer, persistStore } from 'redux-persist';
 import { configureStore } from '@reduxjs/toolkit';
-import languageReducer from './slices/languageTogglerSlice';
+import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+
+import languageReducer from './slices/languageTogglerSlice';
+
 
 const persistConfig = {
   key: 'root',
