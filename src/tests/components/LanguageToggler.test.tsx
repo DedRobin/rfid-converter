@@ -1,10 +1,12 @@
-import { describe, expect, it } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { I18nextProvider } from 'react-i18next';
-import LanguageToggler from '../../components/LanguageToggler/index';
-import { Provider } from 'react-redux';
 import i18n from '@shared/i18n';
 import store from '@store/index';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { I18nextProvider } from 'react-i18next';
+import { Provider } from 'react-redux';
+import { describe, expect, it } from 'vitest';
+
+import LanguageToggler from '../../components/LanguageToggler/index';
+
 
 describe('LanguageToggler Component', () => {
   it('should render the LanguageToggler component', () => {

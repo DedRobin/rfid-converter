@@ -1,5 +1,6 @@
-import { NotifyType, PositionalNumeralSystem } from '@customTypes/App';
 import { MouseEvent } from 'react';
+
+import { NotifyType, PositionalNumeralSystem } from '@customTypes/App';
 
 interface ToastContextProps {
   notify: (msg: string, type?: NotifyType) => void;

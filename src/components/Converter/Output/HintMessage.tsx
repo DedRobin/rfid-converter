@@ -1,7 +1,9 @@
 import { FC } from 'react';
+
 import { HintProps } from '@interfaces/Output';
-import styles from './Output.module.css';
 import { useTranslation } from 'react-i18next';
+
+import styles from './Output.module.css';
 
 const Hint: FC<HintProps> = ({ currentCopiedType, hasConvertedData }) => {
   const { t } = useTranslation();

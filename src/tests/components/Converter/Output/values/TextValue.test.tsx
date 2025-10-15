@@ -1,8 +1,9 @@
-import { describe, expect, it } from 'vitest';
 import TextValue from '@components/Converter/Output/values/TextValue';
 import { fireEvent } from '@testing-library/react';
-import mockContextValue from './mockData';
+import { describe, expect, it } from 'vitest';
+
 import { renderWith } from './customRender';
+import mockContextValue from './mockData';
 
 describe('TextValue Component', () => {
   it('should render the TextValue component', () => {

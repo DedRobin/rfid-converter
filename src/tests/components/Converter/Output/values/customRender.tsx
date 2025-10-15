@@ -1,7 +1,9 @@
-import { RenderOptions, render } from '@testing-library/react';
+import { ReactElement } from 'react';
+
 import CardFormatContext from '@contexts/CardFormat';
 import { CardFormatContextProps } from '@contexts/interfaces';
-import { ReactElement } from 'react';
+import { RenderOptions, render } from '@testing-library/react';
+
 
 const renderWithCardFormatContext = (
   ui: ReactElement,

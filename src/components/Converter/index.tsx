@@ -1,10 +1,12 @@
 import './style.css';
+import { useState } from 'react';
+
 import { ConverterHandler } from '@customTypes/App';
+
+import { defaultFields } from './constants';
 import ConverterInput from './Input';
 import ConverterOutput from './Output';
-import { defaultFields } from './constants';
 import { updateField } from './services';
-import { useState } from 'react';
 
 const Converter = () => {
   const [fields, setFields] = useState(defaultFields);
