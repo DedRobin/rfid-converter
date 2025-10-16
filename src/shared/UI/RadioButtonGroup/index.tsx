@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { RadioButtonGroupProps } from '@interfaces/UI';
 
-import styles from './RadioButtons.module.css';
+import styles from './RadioButtonGroup.module.css';
 
 const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
   name,

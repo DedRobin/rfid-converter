@@ -1,4 +1,3 @@
-import './style.css';
 import {
   ChangeEventHandler,
   FC,
@@ -23,7 +22,6 @@ import styles from './Input.module.css';
 import { handleInput } from './services';
 
 const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
-  const className = useMemo(() => 'converter-input', []);
   const templates = useMemo(() => DEFAULT_TEMPLATES, []);
 
   const { notify } = useContext(ToastContext);
@@ -132,41 +130,26 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
   }, [handleEnterKeyword, handleCtrlV]);
 
   return (
-    <div className={className}>
+    <div className={styles.converter}>
       <CardTypes changeType={changeType} />
-      <div className={`${className}__value`}>
-        <input
-          autoFocus={true}
-          className={`${styles.inputValue} ${
-            !inputIsValid ? styles.notValid : ''
-          }`}
-          id="Text"
-          onChange={onInputChange}
-          placeholder={placeholder}
-          value={value}
-        />
-      </div>
-      <div className={`${className}__buttons`}>
-        <button
-          className="field__button--clear"
-          onClick={onClearClick}
-          type="button"
-        >
+      <input
+        autoFocus={true}
+        className={`${styles.converterValue} ${
+          !inputIsValid ? styles.converterValueNotValid : ''
+        }`}
+        id="Text"
+        onChange={onInputChange}
+        placeholder={placeholder}
+        value={value}
+      />
+      <div className={styles.converterButtons}>
+        <button onClick={onClearClick} type="button">
           X
         </button>
-        <button
-          className="field__button--convert"
-          disabled={!inputIsValid}
-          onClick={onConvertClick}
-          type="button"
-        >
+        <button disabled={!inputIsValid} onClick={onConvertClick} type="button">
           {t('Convert')}
         </button>
-        <button
-          className="field__button--save"
-          onClick={onSaveClick}
-          type="button"
-        >
+        <button onClick={onSaveClick} type="button">
           💾
         </button>
       </div>
