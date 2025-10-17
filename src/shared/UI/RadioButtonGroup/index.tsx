@@ -2,9 +2,12 @@ import { FC } from 'react';
 
 import { RadioButtonGroupProps } from '@interfaces/UI';
 
+import Radio from '../Radio';
+
 import styles from './RadioButtonGroup.module.css';
 
 const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
+  initField,
   name,
   legend,
   fields,
@@ -13,11 +16,15 @@ const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
   return (
     <fieldset className={styles.radioButtons} name={name} onChange={onChange}>
       <legend>{legend}</legend>
-      {fields.map((value) => (
-        <div key={value.id}>
-          <input id={value.id} name={name} type="radio" value={value.value} />
-          <label htmlFor={value.id}>{value.label}</label>
-        </div>
+      {fields.map((field) => (
+        <Radio
+          checked={field === initField}
+          id={field.id}
+          key={field.id}
+          label={field.label}
+          name={name}
+          value={field.value}
+        />
       ))}
     </fieldset>
   );

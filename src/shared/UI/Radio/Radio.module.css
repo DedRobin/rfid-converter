@@ -1,0 +1,42 @@
+.label {
+  display: flex;
+  gap: 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  padding-right: 8px;
+
+  transition: background-color 0.2s;
+}
+
+.label:has(.radioInput:checked) {
+  pointer-events: none;
+  background-color: #c99b00;
+}
+
+.radioInput {
+  display: none;
+}
+
+.customRadioOuter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 14px;
+  height: 14px;
+  border: 2px #c99b00 solid;
+  border-radius: 50%;
+  align-self: center;
+}
+
+.customRadioInner {
+  opacity: 0;
+  width: 8px;
+  height: 8px;
+  border: 1px white solid;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.radioInput:checked + .customRadioOuter > .customRadioInner {
+  opacity: 1;
+}
