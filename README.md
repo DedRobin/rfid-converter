@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# RFID Converter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+The Card Code Converter is a versatile application designed to convert card codes between three different formats: TEXT, DEX, and HEX. Whether you're a developer, gamer, or just someone who needs to work with card codes, this tool simplifies the process of converting between these formats, making it easy to manage and utilize card data.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Format Conversion**: Convert card codes between TEXT, DEX, and HEX formats seamlessly.
+- **User-Friendly Interface**: Simple and intuitive interface for easy navigation and usage.
+- **Batch Processing**: Convert multiple card codes at once for efficiency.
+- **Cross-Platform Compatibility**: Works on Windows, macOS, and Linux.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Installation
 
-- Configure the top-level `parserOptions` property like this:
+### Prerequisites
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Ensure you have [Node.js](https://nodejs.org/) installed on your machine (version 12 or higher).
+- Clone the repository or download the latest release.
+- The application is also available via the [link](https://dedrobin.github.io/rfid-converter/) 
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Steps
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. **Clone the Repository**:
+   ```bash
+   git clone git@github.com:DedRobin/rfid-converter.git
+   cd rfid-converter
+   ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Run the Application**:
+   ```bash
+   npm start
+   ```
+
+## Usage
+
+1. **Select Input Format**: Choose the format of the card code you want to convert (TEXT, DEX, or HEX).
+2. **Enter Card Code**: Input the card code in the designated field.
+3. **Convert**: Click the "Convert" button to see the converted card code.
+4. **Copy/Export**: You can copy the converted code to your clipboard or export it to a file.
+
+## Supported Formats
+
+- **TEXT**: Standard human-readable format.
+- **DEX**: A format commonly used in various applications and games.
+- **HEX**: A hexadecimal representation of the card code.
+
+## Contributing
+
+We welcome contributions! If you have suggestions for improvements.
