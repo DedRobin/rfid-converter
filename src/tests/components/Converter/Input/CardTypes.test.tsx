@@ -31,14 +31,14 @@ describe('CardTypes Component', () => {
     const hexOption = getByRole('radio', { name: 'Hex' });
     expect(hexOption).toBeInTheDocument();
 
-    fireEvent.click(textOption);
-    expect(textOption).toBeChecked();
-
     fireEvent.click(dexOption);
     expect(dexOption).toBeChecked();
 
     fireEvent.click(hexOption);
     expect(hexOption).toBeChecked();
+
+    fireEvent.click(textOption);
+    expect(textOption).toBeChecked();
 
     expect(mockProps.changeType).toHaveBeenCalledTimes(3);
   });

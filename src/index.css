@@ -1,5 +1,13 @@
 :root {
   --bg-root-color: #292a2a;
+  --anim-duration: 0.2s;
+
+  --input-border-color: #c99b00;
+  --input-border-width: 2px;
+  --input-border-style: solid;
+  --input-border-radius: 8px;
+  --input-box-shadow: 0px 0px 0px var(--input-border-color);
+  --input-box-shadow-active: 0px 0px 8px var(--input-border-color);
 
   font-family: Monda, sans-serif;
   line-height: 1.5;
@@ -54,13 +62,28 @@ button {
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: var(--input-border-color);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+input {
+  padding: 12px;
+  border-width: var(--input-border-width);
+  border-style: var(--input-border-style);
+  border-color: var(--input-border-color);
+  border-radius: var(--input-border-radius);
+  box-shadow: var(--input-box-shadow);
+  background-color: transparent;
+  transition: box-shadow var(--anim-duration);
+}
+input:focus,
+input:focus-visible {
+  outline: none;
+  box-shadow: var(--input-box-shadow-active);
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

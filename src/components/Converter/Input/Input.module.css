@@ -5,21 +5,6 @@
   gap: 10px;
 }
 
-.converterValue {
-  border-width: 0px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.converterValueNotValid {
-  color: red;
-}
-
 .converterButtons {
   display: flex;
   gap: 10px;

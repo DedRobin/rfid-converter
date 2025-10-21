@@ -10,7 +10,7 @@
 
 .label:has(.radioInput:checked) {
   pointer-events: none;
-  background-color: #c99b00;
+  background-color: var(--input-border-color);
 }
 
 .radioInput {
@@ -23,7 +23,7 @@
   align-items: center;
   width: 14px;
   height: 14px;
-  border: 2px #c99b00 solid;
+  border: var(--input-border-width) var(--input-border-color) solid;
   border-radius: 50%;
   align-self: center;
 }

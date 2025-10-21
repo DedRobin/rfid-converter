@@ -134,14 +134,12 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
       <CardTypes changeType={changeType} />
       <input
         autoFocus={true}
-        className={`${styles.converterValue} ${
-          !inputIsValid ? styles.converterValueNotValid : ''
-        }`}
         id="Text"
         onChange={onInputChange}
         placeholder={placeholder}
         value={value}
       />
+
       <div className={styles.converterButtons}>
         <button onClick={onClearClick} type="button">
           X
