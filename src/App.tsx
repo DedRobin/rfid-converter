@@ -31,7 +31,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    i18n.changeLanguage(language);
+    void i18n.changeLanguage(language);
     setIsLoading(false);
   }, [language, i18n]);
 
@@ -48,6 +48,6 @@ const App = () => {
       <ToastContainer />
     </ToastContext>
   );
-}
+};
 
 export default App;

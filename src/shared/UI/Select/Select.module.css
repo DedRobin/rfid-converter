@@ -1,0 +1,48 @@
+.select {
+  padding: 12px;
+  border-width: var(--inline-border-width);
+  border-radius: var(--inline-border-radius);
+  border-color: var(--inline-border-color);
+  border-style: var(--inline-border-style);
+  cursor: default;
+  user-select: none;
+}
+
+.defaultOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.option {
+  border-radius: 12px;
+  padding: 0px 6px 0px 6px;
+  transition: background-color var(--anim-duration), color var(--anim-duration);
+
+  &:hover {
+    color: black;
+    background-color: var(--inline-border-color);
+    cursor: pointer;
+  }
+}
+
+.svg,
+.rotatedSvg {
+  width: 20px;
+  height: 20px;
+  fill: transparent;
+  stroke: var(--inline-border-color);
+  stroke-width: 2px;
+  transition: transform var(--anim-duration), fill var(--anim-duration);
+}
+
+.rotatedSvg {
+  transform: rotate(90deg);
+  fill: var(--inline-border-color);
+}

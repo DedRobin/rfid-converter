@@ -17,8 +17,7 @@ describe('LanguageToggler Component', () => {
       </Provider>
     );
 
-    // Check if the select element is rendered
-    const selectElement = screen.getByRole('combobox');
+    const selectElement = screen.getByTestId('custom-select');
     expect(selectElement).toBeInTheDocument();
   });
 
@@ -31,8 +30,8 @@ describe('LanguageToggler Component', () => {
       </Provider>
     );
 
-    const selectElement = screen.getByRole('combobox');
-    expect(selectElement).toHaveValue('en');
+    const selectElement = screen.getByTestId('custom-select');
+    expect(selectElement).toHaveTextContent('EN');
   });
 
   it('should change language to ru when selected', () => {
@@ -44,11 +43,31 @@ describe('LanguageToggler Component', () => {
       </Provider>
     );
 
-    const selectElement = screen.getByRole('combobox');
-    fireEvent.change(selectElement, { target: { value: 'ru' } });
-    expect(selectElement).toHaveValue('ru');
+    const selectElement = screen.getByTestId('custom-select');
+    expect(selectElement).toBeInTheDocument();
+    const selectedOption = screen.getByTestId('selected-option');
 
-    fireEvent.change(selectElement, { target: { value: 'en' } });
-    expect(selectElement).toHaveValue('en');
+    fireEvent.click(selectElement);
+
+    const [enOption, ruOption] = screen.getAllByTestId('custom-select-option');
+
+    expect(ruOption).toBeInTheDocument();
+    expect(enOption).toBeInTheDocument();
+
+    expect(ruOption).toHaveTextContent('RU');
+    fireEvent.click(ruOption);
+    expect(selectedOption).toHaveTextContent('RU');
+
+    expect(enOption).toHaveTextContent('EN');
+
+    fireEvent.click(enOption);
+    expect(selectedOption).toHaveTextContent('EN');
+
+    // expect(selectElement).toHaveValue('ru');
+    // fireEvent.change(selectElement, { target: { value: 'ru' } });
+    // expect(selectElement).toHaveValue('ru');
+
+    // fireEvent.change(selectElement, { target: { value: 'en' } });
+    // expect(selectElement).toHaveValue('en');
   });
 });

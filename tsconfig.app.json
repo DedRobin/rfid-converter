@@ -30,7 +30,8 @@
       "@contexts/*": ["src/contexts/*"],
       "@store/*": ["src/store/*"],
       "@interfaces/*": ["src/interfaces/*"],
-      "@customTypes/*": ["src/types/*"]
+      "@customTypes/*": ["src/types/*"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
   "include": ["src"]

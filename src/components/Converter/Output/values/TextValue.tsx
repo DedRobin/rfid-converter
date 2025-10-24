@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { MouseEventHandler, useContext } from 'react';
 
 import CardFormatContext from '@contexts/CardFormat';
 
@@ -11,6 +11,12 @@ const TextValue = () => {
     currentCopiedType,
   } = useContext(CardFormatContext);
 
+  const onClick: MouseEventHandler<HTMLDivElement> = (e) => {
+    if (!handleCopy || !text) return;
+
+    void handleCopy(e, text, 'text');
+  };
+
   return (
     handleCopy &&
     text && (
@@ -20,7 +26,7 @@ const TextValue = () => {
           className={`${styles.textValue} ${
             currentCopiedType === 'text' ? styles.copied : ''
           }`}
-          onClick={(e) => handleCopy(e, text, 'text')}
+          onClick={onClick}
         >
           {text}
         </div>

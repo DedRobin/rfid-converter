@@ -5,28 +5,30 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import { defineConfig } from 'eslint/config';
 
-export default tseslint.config(
-  { ignores: ['dist'] },
+export default defineConfig(
+  { basePath: './src' },
+  { ignores: ['dist', '**/*.config.js'] },
   {
     extends: [
       js.configs.recommended,
-      ...tseslint.configs.recommended,
+      tseslint.configs.recommendedTypeChecked,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
     ],
-    files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
+    files: ['**/*.{js,jsx,ts,tsx}'],
     plugins: {
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
     languageOptions: {
-      parser: tseslint.parser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
         },
+        projectService: true,
       },
       ecmaVersion: 2020,
       globals: { ...globals.browser },
@@ -42,7 +44,6 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      // 'sort-imports': 'error',
       'react/prefer-stateless-function': 'error',
       'react/button-has-type': 'error',
       'react/no-unused-prop-types': 'error',
@@ -82,7 +83,7 @@ export default tseslint.config(
       'react/jsx-one-expression-per-line': 'off',
       'react/prop-types': 'off',
       'import/order': [
-        'error',
+        'warn',
         {
           groups: [
             'builtin', // Node.js built-in modules

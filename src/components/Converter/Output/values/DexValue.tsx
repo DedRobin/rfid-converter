@@ -20,7 +20,7 @@ const DexValue = () => {
           className={`${styles.dexValue} ${
             currentCopiedType === 'dex' ? styles.copied : ''
           }`}
-          onClick={(e) => handleCopy(e, dex, 'dex')}
+          onClick={(e) => void handleCopy(e, dex, 'dex')}
         >
           {dex}
         </div>

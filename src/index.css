@@ -9,6 +9,15 @@
   --input-box-shadow: 0px 0px 0px var(--input-border-color);
   --input-box-shadow-active: 0px 0px 8px var(--input-border-color);
 
+  --inline-border-width: 2px;
+  --inline-border-radius: 8px;
+  --inline-border-color: #c99b00;
+  --inline-border-style: solid;
+
+  --btn-bg-color: #0a4583;
+  --btn-border-color-hover: #5f8fc1;
+  --btn-border-width: 2px;
+
   font-family: Monda, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -47,12 +56,12 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: var(--btn-border-width) solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--btn-bg-color);
   cursor: pointer;
   transition: border-color 0.25s;
 
@@ -62,9 +71,8 @@ button {
 }
 
 button:hover {
-  border-color: var(--input-border-color);
+  border-color: var(--btn-border-color-hover);
 }
-button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
@@ -84,6 +92,17 @@ input:focus-visible {
   outline: none;
   box-shadow: var(--input-box-shadow-active);
 }
+
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
