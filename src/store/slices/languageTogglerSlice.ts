@@ -1,5 +1,5 @@
 import { LanguageState } from '@interfaces/LanguageToggler';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: LanguageState = {
   language: 'en',
@@ -9,7 +9,7 @@ const languageSlice = createSlice({
   name: 'language',
   initialState,
   reducers: {
-    setLanguage: (state, action) => {
+    setLanguage: (state, action: PayloadAction<string>) => {
       state.language = action.payload;
     },
   },

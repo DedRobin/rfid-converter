@@ -1,9 +1,0 @@
-.languageToggler {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}

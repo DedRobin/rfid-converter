@@ -55,25 +55,29 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
   );
 
   const handleCtrlV = useCallback(
-    async (event: KeyboardEvent) => {
-      const isCtrlV = event.ctrlKey && event.code === 'KeyV';
+    (event: KeyboardEvent) => {
+      const getDataFromClipboard = async () => {
+        const isCtrlV = event.ctrlKey && event.code === 'KeyV';
 
-      if (isCtrlV) {
-        try {
-          const valueFromClipboard = await navigator.clipboard.readText();
-          const isValid = validateInputValue(valueFromClipboard);
+        if (isCtrlV) {
+          try {
+            const valueFromClipboard = await navigator.clipboard.readText();
+            const isValid = validateInputValue(valueFromClipboard);
 
-          setValue(() => {
-            if (!isValid) return '';
-            return valueFromClipboard;
-          });
-        } catch (error) {
-          const errorMsg = t('input.errors.failToReadFromClipboard');
+            setValue(() => {
+              if (!isValid) return '';
+              return valueFromClipboard;
+            });
+          } catch (error) {
+            const errorMsg = t('input.errors.failToReadFromClipboard');
 
-          notify(errorMsg, 'error');
-          console.error(errorMsg, error);
+            notify(errorMsg, 'error');
+            console.error(errorMsg, error);
+          }
         }
-      }
+      };
+
+      void getDataFromClipboard();
     },
     [validateInputValue, t, notify]
   );
@@ -134,14 +138,12 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
       <CardTypes changeType={changeType} />
       <input
         autoFocus={true}
-        className={`${styles.converterValue} ${
-          !inputIsValid ? styles.converterValueNotValid : ''
-        }`}
         id="Text"
         onChange={onInputChange}
         placeholder={placeholder}
         value={value}
       />
+
       <div className={styles.converterButtons}>
         <button onClick={onClearClick} type="button">
           X

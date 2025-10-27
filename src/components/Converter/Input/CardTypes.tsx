@@ -1,9 +1,10 @@
-import { FC, FormEventHandler, useMemo } from 'react';
+import { FC, FormEventHandler, useMemo, useState } from 'react';
 
 import { PositionalNumeralSystem } from '@customTypes/App';
 import { RadioButtonGroupProps } from '@interfaces/UI';
 import RadioButtonGroup from '@shared/UI/RadioButtonGroup';
 
+import { useTranslation } from 'react-i18next';
 import { isPositionalNumeralSystemType } from './services';
 
 interface CardTypesProps {
@@ -20,21 +21,31 @@ const CardTypes: FC<CardTypesProps> = ({ changeType }) => {
     []
   );
 
+  const { t } = useTranslation();
+
+  const [initField, setInitField] = useState(fields[0]);
+
   const onChange: FormEventHandler<HTMLFieldSetElement> = (e) => {
     if (!(e.target instanceof HTMLInputElement)) return;
 
     const { value } = e.target;
 
-    if (isPositionalNumeralSystemType(value)) changeType(value);
+    if (isPositionalNumeralSystemType(value)) {
+      changeType(value);
+      setInitField(fields.find((field) => field.value === value) || fields[0]);
+    }
   };
 
   return (
-    <RadioButtonGroup
-      fields={fields}
-      legend="Select type"
-      name="card-types"
-      onChange={onChange}
-    />
+    <div data-testid="card-types">
+      <RadioButtonGroup
+        fields={fields}
+        initField={initField}
+        legend={t('input.cardFormat.selectType')}
+        name="card-types"
+        onChange={onChange}
+      />
+    </div>
   );
 };
 
