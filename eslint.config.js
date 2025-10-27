@@ -24,6 +24,7 @@ export default defineConfig(
       'react-refresh': reactRefresh,
     },
     languageOptions: {
+      parser: tseslint.parser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
