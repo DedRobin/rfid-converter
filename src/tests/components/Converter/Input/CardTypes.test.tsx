@@ -12,9 +12,9 @@ describe('CardTypes Component', () => {
   });
 
   it('should render the component', () => {
-    const { getByRole } = render(<CardTypes {...mockProps} />);
+    const { getByTestId } = render(<CardTypes {...mockProps} />);
 
-    expect(getByRole('group', { name: 'Select type' })).toBeInTheDocument();
+    expect(getByTestId('card-types')).toBeInTheDocument();
   });
 
   it('should call "changeType" when the component is interacted with', () => {

@@ -43,7 +43,7 @@ const Select: FC<SelectOptions> = ({ options, defaultOption, onChange }) => {
         data-testid="custom-select"
         onClick={toggleActive}
       >
-        <div className={styles.defaultValue} data-testid="selected-option">
+        <div data-testid="selected-option">
           {defaultOption?.label || options[0].label}
         </div>
         <DropdownSvg className={isActive ? styles.rotatedSvg : styles.svg} />
@@ -52,7 +52,9 @@ const Select: FC<SelectOptions> = ({ options, defaultOption, onChange }) => {
         <ul className={styles.options} onClick={selectOption}>
           {options.map((option) => (
             <li
-              className={styles.option}
+              className={`${styles.option} ${
+                defaultOption?.label === option.label ? styles.selected : ''
+              }  `}
               data-testid="custom-select-option"
               data-value={option.value}
               key={`${option.value}_key`}

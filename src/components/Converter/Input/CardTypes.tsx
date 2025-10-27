@@ -4,6 +4,7 @@ import { PositionalNumeralSystem } from '@customTypes/App';
 import { RadioButtonGroupProps } from '@interfaces/UI';
 import RadioButtonGroup from '@shared/UI/RadioButtonGroup';
 
+import { useTranslation } from 'react-i18next';
 import { isPositionalNumeralSystemType } from './services';
 
 interface CardTypesProps {
@@ -20,6 +21,8 @@ const CardTypes: FC<CardTypesProps> = ({ changeType }) => {
     []
   );
 
+  const { t } = useTranslation();
+
   const [initField, setInitField] = useState(fields[0]);
 
   const onChange: FormEventHandler<HTMLFieldSetElement> = (e) => {
@@ -34,13 +37,15 @@ const CardTypes: FC<CardTypesProps> = ({ changeType }) => {
   };
 
   return (
-    <RadioButtonGroup
-      fields={fields}
-      initField={initField}
-      legend="Select type"
-      name="card-types"
-      onChange={onChange}
-    />
+    <div data-testid="card-types">
+      <RadioButtonGroup
+        fields={fields}
+        initField={initField}
+        legend={t('input.cardFormat.selectType')}
+        name="card-types"
+        onChange={onChange}
+      />
+    </div>
   );
 };
 

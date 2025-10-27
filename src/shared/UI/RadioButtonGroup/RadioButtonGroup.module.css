@@ -5,3 +5,7 @@
   border-color: var(--input-border-color);
   border-width: var(--input-border-width);
 }
+
+.legend {
+  user-select: none;
+}

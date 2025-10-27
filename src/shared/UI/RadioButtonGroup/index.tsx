@@ -15,7 +15,7 @@ const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
 }) => {
   return (
     <fieldset className={styles.radioButtons} name={name} onChange={onChange}>
-      <legend>{legend}</legend>
+      <legend className={styles.legend}>{legend}</legend>
       {fields.map((field) => (
         <Radio
           checked={field === initField}

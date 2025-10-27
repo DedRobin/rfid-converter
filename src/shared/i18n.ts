@@ -13,6 +13,9 @@ const resources = {
         ru: 'RU',
       },
       input: {
+        cardFormat: {
+          selectType: 'Select type',
+        },
         errors: {
           failToReadFromClipboard: 'Failed to read clipboard contents',
         },
@@ -36,6 +39,9 @@ const resources = {
         ru: 'Рус.',
       },
       input: {
+        cardFormat: {
+          selectType: 'Выберите тип',
+        },
         errors: {
           failToReadFromClipboard:
             'Не удалось прочитать содержимое буфера обмена',

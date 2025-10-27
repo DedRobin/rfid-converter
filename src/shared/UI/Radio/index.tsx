@@ -7,16 +7,15 @@ interface RadioProps {
   name: string;
   label: string;
   value: string;
-  key?: string;
   checked?: boolean;
 }
 
-const Radio: FC<RadioProps> = ({ id, name, label, value, key, checked }) => {
+const Radio: FC<RadioProps> = ({ id, name, label, value, checked }) => {
   return (
-    <label className={styles.label} key={key}>
+    <label className={styles.label}>
       <input
-        checked={checked}
         className={styles.radioInput}
+        defaultChecked={checked}
         id={id}
         name={name}
         type="radio"

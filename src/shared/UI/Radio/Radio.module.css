@@ -4,6 +4,7 @@
   cursor: pointer;
   border-radius: 12px;
   padding-right: 8px;
+  user-select: none;
 
   transition: background-color 0.2s;
 }
