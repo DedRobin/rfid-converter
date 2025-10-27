@@ -2,7 +2,7 @@ import Output from '@components/Converter/Output';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import i18n from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 // Mock data for the Output component
 const mockData = {
@@ -32,13 +32,21 @@ const resources = {
   },
 };
 
+const mockWriteText = vi.fn();
+
 describe('Output Component', () => {
-  beforeAll(() => {
-    i18n.use(initReactI18next).init({
+  beforeAll(async () => {
+    await i18n.use(initReactI18next).init({
       resources,
       lng: 'en',
       interpolation: {
         escapeValue: false,
+      },
+    });
+
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: mockWriteText,
       },
     });
   });
@@ -55,7 +63,7 @@ describe('Output Component', () => {
     expect(getByText(mockData.hex)).toBeInTheDocument();
   });
 
-  it('should call handleCopy when clicking on the hex copy button', async () => {
+  it('should call handleCopy when clicking on the hex copy button', () => {
     const { getByText } = render(<Output {...mockData} />);
     const textValue = getByText(mockData.text);
     const dexValue = getByText(mockData.dex);
@@ -66,13 +74,13 @@ describe('Output Component', () => {
     expect(hexValue).toBeInTheDocument();
 
     fireEvent.click(textValue);
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockData.text);
+    expect(mockWriteText).toHaveBeenCalledWith(mockData.text);
 
     fireEvent.click(dexValue);
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockData.dex);
+    expect(mockWriteText).toHaveBeenCalledWith(mockData.dex);
 
     fireEvent.click(hexValue);
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockData.hex);
+    expect(mockWriteText).toHaveBeenCalledWith(mockData.hex);
   });
 
   it('should display the initial message', () => {
@@ -121,7 +129,7 @@ describe('Output Component', () => {
     }
   });
 
-  it('should appear the "Copied!" message by clicking on the output code', () => {
+  it('should appear the "Copied!" message by clicking on the output code', async () => {
     const { getByText, container } = render(
       <I18nextProvider i18n={i18n}>
         <Output {...mockData} />
@@ -133,7 +141,7 @@ describe('Output Component', () => {
 
     fireEvent.click(textCode);
 
-    waitFor(() => {
+    await waitFor(() => {
       const msg = getByText(resources.en.translation.output.isCopied);
       expect(msg).toBeInTheDocument();
     });

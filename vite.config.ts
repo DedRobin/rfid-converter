@@ -3,9 +3,10 @@ import path from 'path';
 
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), svgr()],
   base: './',
   resolve: {
     alias: {
@@ -16,6 +17,7 @@ export default defineConfig({
       '@store': path.resolve(__dirname, 'src/store'),
       '@interfaces': path.resolve(__dirname, 'src/interfaces'),
       '@customTypes': path.resolve(__dirname, 'src/types'),
+      '@hooks': path.resolve(__dirname, 'src/hooks'),
     },
   },
   test: {

@@ -1,9 +1,11 @@
-.inputValue {
-  border-width: 0px;
-  padding: 12px;
-  border: 1px solid #ccc;
+.converter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.notValid {
-  color: red;
+.converterButtons {
+  display: flex;
+  gap: 10px;
 }

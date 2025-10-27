@@ -1,32 +1,37 @@
-import './style.css';
+import Select from '@shared/UI/Select';
 import { languageSelector } from '@store/selectors/languageToggler';
+import { setLanguage } from '@store/slices/languageTogglerSlice';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setLanguage } from '../../store/slices/languageTogglerSlice';
-
+import styles from './LanguageToggler.module.css';
 
 const LanguageToggler = () => {
   const dispatch = useDispatch();
   const { language } = useSelector(languageSelector);
   const { t } = useTranslation();
 
-  const changeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedLanguage = event.target.value;
+  const options = [
+    { label: t('languageToggler.en'), value: 'en' },
+    { label: t('languageToggler.ru'), value: 'ru' },
+  ];
 
-    dispatch(setLanguage(selectedLanguage));
+  const defaultOption = options.find((opt) => opt.value === language);
+
+  const changeLanguage = (value: string | undefined) => {
+    if (!value) return;
+
+    dispatch(setLanguage(value));
   };
 
   return (
-    <select
-      className="language-toggler"
-      name="language-toggler"
-      onChange={changeLanguage}
-      value={language}
-    >
-      <option value="en">{t('languageToggler.en')}</option>
-      <option value="ru">{t('languageToggler.ru')}</option>
-    </select>
+    <div className={styles.wrapper}>
+      <Select
+        defaultOption={defaultOption}
+        onChange={changeLanguage}
+        options={options}
+      />
+    </div>
   );
 };
 

@@ -20,7 +20,7 @@ const HexValue = () => {
           className={`${styles.hexValue} ${
             currentCopiedType === 'hex' ? styles.copied : ''
           }`}
-          onClick={(e) => handleCopy(e, hex, 'hex')}
+          onClick={(e) => void handleCopy(e, hex, 'hex')}
         >
           {hex}
         </div>

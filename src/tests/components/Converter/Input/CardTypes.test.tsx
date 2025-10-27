@@ -12,9 +12,9 @@ describe('CardTypes Component', () => {
   });
 
   it('should render the component', () => {
-    const { getByRole } = render(<CardTypes {...mockProps} />);
+    const { getByTestId } = render(<CardTypes {...mockProps} />);
 
-    expect(getByRole('group', { name: 'Select type' })).toBeInTheDocument();
+    expect(getByTestId('card-types')).toBeInTheDocument();
   });
 
   it('should call "changeType" when the component is interacted with', () => {
@@ -31,14 +31,14 @@ describe('CardTypes Component', () => {
     const hexOption = getByRole('radio', { name: 'Hex' });
     expect(hexOption).toBeInTheDocument();
 
-    fireEvent.click(textOption);
-    expect(textOption).toBeChecked();
-
     fireEvent.click(dexOption);
     expect(dexOption).toBeChecked();
 
     fireEvent.click(hexOption);
     expect(hexOption).toBeChecked();
+
+    fireEvent.click(textOption);
+    expect(textOption).toBeChecked();
 
     expect(mockProps.changeType).toHaveBeenCalledTimes(3);
   });
