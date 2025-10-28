@@ -1,4 +1,4 @@
-import DexValue from '@components/Converter/Output/values/DexValue';
+import DexValue from '@components/Main/Converter/Output/values/DexValue';
 import { fireEvent } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 

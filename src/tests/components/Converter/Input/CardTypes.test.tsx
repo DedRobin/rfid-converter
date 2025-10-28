@@ -1,4 +1,4 @@
-import CardTypes from '@components/Converter/Input/CardTypes';
+import CardTypes from '@components/Main/Converter/Input/CardTypes';
 import { fireEvent, render } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 

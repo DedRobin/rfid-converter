@@ -1,8 +1,9 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 
-import Converter from '@components/Converter';
-import LanguageToggler from '@components/LanguageToggler';
+import Footer from '@components/Footer';
+import Header from '@components/Header';
+import Main from '@components/Main';
 import ToastContext from '@contexts/Toast';
 import { NotifyType } from '@customTypes/App';
 import Loader from '@shared/UI/Loader';
@@ -41,8 +42,9 @@ const App = () => {
         <Loader />
       ) : (
         <>
-          <Converter />
-          <LanguageToggler />
+          <Header />
+          <Main />
+          <Footer />
         </>
       )}
       <ToastContainer />

@@ -14,4 +14,23 @@ interface RadioButtonGroupProps {
   onChange: (event: ChangeEvent<HTMLFieldSetElement>) => void;
 }
 
-export type { RadioButtonGroupProps };
+interface RadioProps {
+  id: string;
+  name: string;
+  label: string;
+  value: string;
+  checked?: boolean;
+}
+
+interface Option {
+  label: string;
+  value: string;
+}
+
+interface SelectOptions {
+  options: Option[];
+  defaultOption: Option | undefined;
+  onChange: (value: string | undefined) => void;
+}
+
+export type { RadioButtonGroupProps, SelectOptions, RadioProps };

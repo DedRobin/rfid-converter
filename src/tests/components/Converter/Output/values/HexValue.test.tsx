@@ -1,4 +1,4 @@
-import HexValue from '@components/Converter/Output/values/HexValue';
+import HexValue from '@components/Main/Converter/Output/values/HexValue';
 import { fireEvent } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 

@@ -1,20 +1,10 @@
 import { FC, MouseEventHandler, useRef, useState } from 'react';
 
 import useClickOutside from '@hooks/useClickOutside';
+import { SelectOptions } from '@interfaces/UI';
 
 import DropdownSvg from './dropdown.svg?react';
 import styles from './Select.module.css';
-
-interface Option {
-  label: string;
-  value: string;
-}
-
-interface SelectOptions {
-  options: Option[];
-  defaultOption: Option | undefined;
-  onChange: (value: string | undefined) => void;
-}
 
 const Select: FC<SelectOptions> = ({ options, defaultOption, onChange }) => {
   const [isActive, setIsActive] = useState(false);
@@ -37,33 +27,31 @@ const Select: FC<SelectOptions> = ({ options, defaultOption, onChange }) => {
   useClickOutside(ref, () => setIsActive(false));
 
   return (
-    <div className={styles.select} ref={ref}>
-      <div
-        className={styles.defaultOption}
-        data-testid="custom-select"
-        onClick={toggleActive}
-      >
+    <div className={styles.select} onClick={toggleActive} ref={ref}>
+      <div className={styles.defaultOption} data-testid="custom-select">
         <div data-testid="selected-option">
           {defaultOption?.label || options[0].label}
         </div>
         <DropdownSvg className={isActive ? styles.rotatedSvg : styles.svg} />
       </div>
-      {isActive ? (
-        <ul className={styles.options} onClick={selectOption}>
-          {options.map((option) => (
-            <li
-              className={`${styles.option} ${
-                defaultOption?.label === option.label ? styles.selected : ''
-              }  `}
-              data-testid="custom-select-option"
-              data-value={option.value}
-              key={`${option.value}_key`}
-            >
-              {option.label}
-            </li>
-          ))}
-        </ul>
-      ) : null}
+
+      <ul
+        className={`${styles.options} ${isActive ? styles.active : ''}`}
+        onClick={selectOption}
+      >
+        {options.map((option) => (
+          <li
+            className={`${styles.option} ${
+              defaultOption?.label === option.label ? styles.selected : ''
+            }  `}
+            data-testid="custom-select-option"
+            data-value={option.value}
+            key={`${option.value}_key`}
+          >
+            {option.label}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

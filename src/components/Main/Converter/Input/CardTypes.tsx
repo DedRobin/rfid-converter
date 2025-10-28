@@ -3,8 +3,8 @@ import { FC, FormEventHandler, useMemo, useState } from 'react';
 import { PositionalNumeralSystem } from '@customTypes/App';
 import { RadioButtonGroupProps } from '@interfaces/UI';
 import RadioButtonGroup from '@shared/UI/RadioButtonGroup';
-
 import { useTranslation } from 'react-i18next';
+
 import { isPositionalNumeralSystemType } from './services';
 
 interface CardTypesProps {

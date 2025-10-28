@@ -7,6 +7,8 @@
   border-style: var(--inline-border-style);
   cursor: default;
   user-select: none;
+
+  anchor-name: --select;
 }
 
 .defaultOption {
@@ -19,7 +21,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-top: 1px var(--inline-border-color) solid;
+
+  position: absolute;
+  top: anchor(--select bottom);
+  left: anchor(--select 25%);
+  visibility: hidden;
+
+  &.active {
+    visibility: visible;
+  }
 }
 
 .option {
