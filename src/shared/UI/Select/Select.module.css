@@ -1,6 +1,8 @@
 .select {
-  min-width: 80px;
-  padding: 12px;
+  --option-bg-color: rgb(87, 87, 87);
+  --option-border-color: gray;
+
+  padding: 10px;
   border-width: var(--inline-border-width);
   border-radius: var(--inline-border-radius);
   border-color: var(--inline-border-color);
@@ -8,7 +10,7 @@
   cursor: default;
   user-select: none;
 
-  anchor-name: --select;
+  anchor-name: --select-anchor;
 }
 
 .defaultOption {
@@ -23,9 +25,13 @@
   align-items: center;
 
   position: absolute;
-  top: anchor(--select bottom);
-  left: anchor(--select 25%);
+  top: calc(anchor(--select-anchor bottom) + 4px);
+  right: anchor(--select-anchor right);
   visibility: hidden;
+  padding: 5px;
+
+  border: 2px gray solid;
+  background-color: var(--option-bg-color);
 
   &.active {
     visibility: visible;
@@ -40,7 +46,6 @@
 
   &:hover {
     color: black;
-    background-color: var(--inline-border-color);
     cursor: pointer;
   }
 
