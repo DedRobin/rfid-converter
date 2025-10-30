@@ -2,12 +2,12 @@
   --bg-root-color: #292a2a;
   --anim-duration: 0.2s;
 
-  --input-border-color: #c99b00;
-  --input-border-width: 2px;
-  --input-border-style: solid;
-  --input-border-radius: 8px;
-  --input-box-shadow: 0px 0px 0px var(--input-border-color);
-  --input-box-shadow-active: 0px 0px 8px var(--input-border-color);
+  --inline-border-color: #c99b00;
+  --inline-border-width: 2px;
+  --inline-border-style: solid;
+  --inline-border-radius: 8px;
+  --inline-box-shadow: 0px 0px 0px var(--inline-border-color);
+  --inline-box-shadow-active: 0px 0px 8px var(--inline-border-color);
 
   --inline-border-width: 2px;
   --inline-border-radius: 8px;
@@ -79,18 +79,18 @@ button:focus-visible {
 
 input {
   padding: 12px;
-  border-width: var(--input-border-width);
-  border-style: var(--input-border-style);
-  border-color: var(--input-border-color);
-  border-radius: var(--input-border-radius);
-  box-shadow: var(--input-box-shadow);
+  border-width: var(--inline-border-width);
+  border-style: var(--inline-border-style);
+  border-color: var(--inline-border-color);
+  border-radius: var(--inline-border-radius);
+  box-shadow: var(--inline-box-shadow);
   background-color: transparent;
   transition: box-shadow var(--anim-duration);
 }
 input:focus,
 input:focus-visible {
   outline: none;
-  box-shadow: var(--input-box-shadow-active);
+  box-shadow: var(--inline-box-shadow-active);
 }
 
 ul,
