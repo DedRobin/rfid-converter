@@ -16,6 +16,7 @@ const resources = {
         cardFormat: {
           selectType: 'Select type',
         },
+        prompt: 'Type card number in corresponding format',
         errors: {
           failToReadFromClipboard: 'Failed to read clipboard contents',
         },
@@ -42,6 +43,7 @@ const resources = {
         cardFormat: {
           selectType: 'Выберите тип',
         },
+        prompt: 'Введите номер карты в соответствующем формате',
         errors: {
           failToReadFromClipboard:
             'Не удалось прочитать содержимое буфера обмена',

@@ -19,6 +19,7 @@ import { valueIsValid } from '../services';
 import CardTypes from './CardTypes';
 import { DEFAULT_TEMPLATES } from './constants';
 import styles from './Input.module.css';
+import Prompt from './Prompt';
 import { handleInput } from './services';
 
 const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
@@ -143,7 +144,7 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
         placeholder={placeholder}
         value={value}
       />
-
+      <Prompt msg={inputIsValid ? '' : t('input.prompt')} />
       <div className={styles.converterButtons}>
         <button onClick={onClearClick} type="button">
           X

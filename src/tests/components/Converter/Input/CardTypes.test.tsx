@@ -1,5 +1,7 @@
 import CardTypes from '@components/Main/Converter/Input/CardTypes';
+import i18n from '@shared/i18n';
 import { fireEvent, render } from '@testing-library/react';
+import { I18nextProvider } from 'react-i18next';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 const mockProps = {
@@ -12,7 +14,11 @@ describe('CardTypes Component', () => {
   });
 
   it('should render the component', () => {
-    const { getByTestId } = render(<CardTypes {...mockProps} />);
+    const { getByTestId } = render(
+      <I18nextProvider i18n={i18n}>
+        <CardTypes {...mockProps} />
+      </I18nextProvider>
+    );
 
     expect(getByTestId('card-types')).toBeInTheDocument();
   });
