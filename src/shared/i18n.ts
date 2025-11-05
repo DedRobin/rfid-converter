@@ -12,6 +12,10 @@ const resources = {
         en: 'EN',
         ru: 'RU',
       },
+      settigns: {
+        copyAfterConvert:
+          'Copy the code to the clipboard after clicking on the "Convert" button',
+      },
       input: {
         cardFormat: {
           selectType: 'Select type',
@@ -30,6 +34,9 @@ const resources = {
           failToCopy: 'Failed to copy text',
         },
       },
+      notifications: {
+        copiedToClipboard: 'The value has been copied to the clipboard',
+      },
     },
   },
   ru: {
@@ -38,6 +45,10 @@ const resources = {
       languageToggler: {
         en: 'Англ.',
         ru: 'Рус.',
+      },
+      settigns: {
+        copyAfterConvert:
+          'Копировать код в буфер обмена после нажатия на кнопку "Преобразовать"',
       },
       input: {
         cardFormat: {
@@ -57,6 +68,9 @@ const resources = {
         errors: {
           failToCopy: 'Не удалось скопировать текст',
         },
+      },
+      notifications: {
+        copiedToClipboard: 'Значение было скопировано в буфер обмена',
       },
     },
   },

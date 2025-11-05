@@ -87,8 +87,8 @@ input {
   background-color: transparent;
   transition: box-shadow var(--anim-duration);
 }
-input:focus,
-input:focus-visible {
+input[type=text]:focus,
+input[type=text]:focus-visible {
   outline: none;
   box-shadow: var(--inline-box-shadow-active);
 }

@@ -97,8 +97,9 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
     setInputIsValid(false);
   };
 
-  const onConvertClick: MouseEventHandler<HTMLButtonElement> = () =>
+  const onConvertClick: MouseEventHandler<HTMLButtonElement> = () => {
     convertTo({ value, type });
+  };
 
   const onClearClick: MouseEventHandler<HTMLButtonElement> = () => clearInput();
 
@@ -142,6 +143,7 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
         id="Text"
         onChange={onInputChange}
         placeholder={placeholder}
+        type="text"
         value={value}
       />
       <Prompt msg={inputIsValid ? '' : t('input.prompt')} />
