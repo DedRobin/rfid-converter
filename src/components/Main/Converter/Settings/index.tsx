@@ -1,19 +1,15 @@
-import {
-  FC,
-  FormEventHandler,
-  MouseEventHandler,
-  useRef,
-  useState,
-} from 'react';
+import { FC, MouseEventHandler, useRef, useState } from 'react';
 
+import { SettingsContext } from '@contexts/Settings';
+import { PositionalNumeralSystem } from '@customTypes/App';
 import useClickOutside from '@hooks/useClickOutside';
-import Radio from '@shared/UI/Radio';
 import { settingsSelector } from '@store/selectors/settingsSelector';
 import { setCopyAfterConvert } from '@store/slices/settingsSlice';
-import { isPositionalNumeralSystem } from '@tools/converter';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
+import CollapseCheckbox from './CollapseCheckbox';
+import CopyAfterConvert from './properties/CopyAfterConvert';
 import styles from './Settings.module.css';
 
 const Settings: FC = () => {
@@ -26,23 +22,8 @@ const Settings: FC = () => {
   const changeCollapsedStatus: MouseEventHandler = () => {
     setIsCollapsed((prev) => !prev);
   };
-  const changeSettigns: FormEventHandler = (e) => {
-    const input = e.target;
-    if (!(input instanceof HTMLInputElement)) return;
-
-    switch (input.name) {
-      case 'copyAfterConvert': {
-        dispatch(setCopyAfterConvert(input.checked ? 'text' : null));
-        break;
-      }
-      case 'numType': {
-        if (isPositionalNumeralSystem(input.value)) {
-          dispatch(setCopyAfterConvert(input.value));
-        }
-
-        break;
-      }
-    }
+  const changeCopyAfterConvert = (numType: PositionalNumeralSystem | null) => {
+    dispatch(setCopyAfterConvert(numType));
   };
 
   useClickOutside(ref, () => setIsCollapsed(false));
@@ -50,47 +31,15 @@ const Settings: FC = () => {
   return (
     <div className={styles.settings} ref={ref}>
       <div className={styles.collapseButton} onClick={changeCollapsedStatus}>
-        Settings
+        {t('settings.label')}
       </div>
       {isCollapsed ? (
-        <div className={styles.collapse} onChange={changeSettigns}>
-          <div>
-            <input
-              checked={!!settingsState.copyAfterConvert}
-              id="copyAfterConvertId"
-              name="copyAfterConvert"
-              type="checkbox"
-            />
-            <label htmlFor="copyAfterConvertId">
-              {t('settigns.copyAfterConvert')}
-            </label>
+        <SettingsContext value={{ changeCopyAfterConvert }}>
+          <div className={styles.collapse}>
+            <CollapseCheckbox />
+            {settingsState.copyAfterConvert ? <CopyAfterConvert /> : null}
           </div>
-          {settingsState.copyAfterConvert ? (
-            <div className={styles.radioButtons}>
-              <Radio
-                checked={settingsState.copyAfterConvert === 'text'}
-                id="numTypeText"
-                label="TEXT"
-                name="numType"
-                value="text"
-              />
-              <Radio
-                checked={settingsState.copyAfterConvert === 'dex'}
-                id="numTypeDex"
-                label="DEX"
-                name="numType"
-                value="dex"
-              />
-              <Radio
-                checked={settingsState.copyAfterConvert === 'hex'}
-                id="numTypeHex"
-                label="HEX"
-                name="numType"
-                value="hex"
-              />
-            </div>
-          ) : null}
-        </div>
+        </SettingsContext>
       ) : null}
     </div>
   );

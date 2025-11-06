@@ -12,7 +12,8 @@ const resources = {
         en: 'EN',
         ru: 'RU',
       },
-      settigns: {
+      settings: {
+        label: 'Settings',
         copyAfterConvert:
           'Copy the code to the clipboard after clicking on the "Convert" button',
       },
@@ -46,7 +47,8 @@ const resources = {
         en: 'Англ.',
         ru: 'Рус.',
       },
-      settigns: {
+      settings: {
+        label: 'Настройки',
         copyAfterConvert:
           'Копировать код в буфер обмена после нажатия на кнопку "Преобразовать"',
       },

@@ -32,8 +32,3 @@
 
   width: calc(anchor-size(width) * 33);
 }
-
-.radioButtons {
-  display: flex;
-  gap: 10px;
-}
