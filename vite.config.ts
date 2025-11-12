@@ -18,6 +18,7 @@ export default defineConfig({
       '@interfaces': path.resolve(__dirname, 'src/interfaces'),
       '@customTypes': path.resolve(__dirname, 'src/types'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
+      '@tests': path.resolve(__dirname, 'src/tests'),
     },
   },
   test: {

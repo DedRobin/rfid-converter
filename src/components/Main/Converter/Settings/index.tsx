@@ -29,7 +29,7 @@ const Settings: FC = () => {
   useClickOutside(ref, () => setIsCollapsed(false));
 
   return (
-    <div className={styles.settings} ref={ref}>
+    <div className={styles.settings} data-testid="settings-test-id" ref={ref}>
       <div className={styles.collapseButton} onClick={changeCollapsedStatus}>
         {t('settings.label')}
       </div>
