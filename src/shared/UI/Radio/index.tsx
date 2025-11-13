@@ -1,14 +1,8 @@
 import { FC } from 'react';
 
-import styles from './Radio.module.css';
+import { RadioProps } from '@interfaces/UI';
 
-interface RadioProps {
-  id: string;
-  name: string;
-  label: string;
-  value: string;
-  checked?: boolean;
-}
+import styles from './Radio.module.css';
 
 const Radio: FC<RadioProps> = ({ id, name, label, value, checked }) => {
   return (

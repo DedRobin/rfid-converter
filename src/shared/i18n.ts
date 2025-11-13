@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
-const resources = {
+export const resources = {
   en: {
     translation: {
       Convert: 'Convert',
@@ -12,10 +12,16 @@ const resources = {
         en: 'EN',
         ru: 'RU',
       },
+      settings: {
+        label: 'Settings',
+        copyAfterConvert:
+          'Copy the code to the clipboard after clicking on the "Convert" button',
+      },
       input: {
         cardFormat: {
           selectType: 'Select type',
         },
+        prompt: 'Type card number in corresponding format',
         errors: {
           failToReadFromClipboard: 'Failed to read clipboard contents',
         },
@@ -29,6 +35,9 @@ const resources = {
           failToCopy: 'Failed to copy text',
         },
       },
+      notifications: {
+        copiedToClipboard: 'The value has been copied to the clipboard',
+      },
     },
   },
   ru: {
@@ -38,10 +47,16 @@ const resources = {
         en: 'Англ.',
         ru: 'Рус.',
       },
+      settings: {
+        label: 'Настройки',
+        copyAfterConvert:
+          'Копировать код в буфер обмена после нажатия на кнопку "Преобразовать"',
+      },
       input: {
         cardFormat: {
           selectType: 'Выберите тип',
         },
+        prompt: 'Введите номер карты в соответствующем формате',
         errors: {
           failToReadFromClipboard:
             'Не удалось прочитать содержимое буфера обмена',
@@ -55,6 +70,9 @@ const resources = {
         errors: {
           failToCopy: 'Не удалось скопировать текст',
         },
+      },
+      notifications: {
+        copiedToClipboard: 'Значение было скопировано в буфер обмена',
       },
     },
   },

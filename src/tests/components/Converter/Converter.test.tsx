@@ -1,18 +1,21 @@
-import Converter from '@components/Converter';
+import Converter from '@components/Main/Converter';
 import i18n from '@shared/i18n';
+import store from '@store/index';
 import { fireEvent, render } from '@testing-library/react';
 import { I18nextProvider } from 'react-i18next';
+import { Provider } from 'react-redux';
 import { describe, expect, it } from 'vitest';
 
 import cardNumbers from '../../mock/cardNumbers.json';
 
-
 describe('Converter Component', () => {
   it('should render the Converter component', () => {
     const { container } = render(
-      <I18nextProvider i18n={i18n}>
-        <Converter />
-      </I18nextProvider>
+      <Provider store={store}>
+        <I18nextProvider i18n={i18n}>
+          <Converter />
+        </I18nextProvider>
+      </Provider>
     );
 
     // Check if the component is rendered
@@ -21,9 +24,11 @@ describe('Converter Component', () => {
 
   it('should convert data from text to hex correctly', () => {
     const { container } = render(
-      <I18nextProvider i18n={i18n}>
-        <Converter />
-      </I18nextProvider>
+      <Provider store={store}>
+        <I18nextProvider i18n={i18n}>
+          <Converter />
+        </I18nextProvider>
+      </Provider>
     );
     const input = container.querySelector('.converter-input__input');
     const hexOutput = container.querySelector('.converter-output__hex-value');
@@ -47,9 +52,11 @@ describe('Converter Component', () => {
 
   it('The left part of text data should be less than 255', () => {
     const { container } = render(
-      <I18nextProvider i18n={i18n}>
-        <Converter />
-      </I18nextProvider>
+      <Provider store={store}>
+        <I18nextProvider i18n={i18n}>
+          <Converter />
+        </I18nextProvider>
+      </Provider>
     );
     const input = container.querySelector('.converter-input__input');
     if (input && input instanceof HTMLInputElement) {

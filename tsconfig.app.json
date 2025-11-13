@@ -31,7 +31,8 @@
       "@store/*": ["src/store/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@customTypes/*": ["src/types/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "@tests/*": ["src/tests/*"]
     }
   },
   "include": ["src"]

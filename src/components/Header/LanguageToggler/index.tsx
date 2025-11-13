@@ -25,7 +25,7 @@ const LanguageToggler = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.languageToggler}>
       <Select
         defaultOption={defaultOption}
         onChange={changeLanguage}

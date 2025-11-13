@@ -1,4 +1,4 @@
-import Output from '@components/Converter/Output';
+import Output from '@components/Main/Converter/Output';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import i18n from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';

@@ -1,21 +1,26 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
+import {
+  // persistReducer,
+  persistStore,
+  persistCombineReducers,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import languageReducer from './slices/languageTogglerSlice';
-
+import settingsReducer from './slices/settingsSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, languageReducer);
+const persistedReducers = persistCombineReducers(persistConfig, {
+  language: languageReducer,
+  settings: settingsReducer,
+});
 
 const store = configureStore({
-  reducer: {
-    language: persistedReducer,
-  },
+  reducer: persistedReducers,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
