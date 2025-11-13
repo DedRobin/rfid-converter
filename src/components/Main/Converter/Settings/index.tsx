@@ -30,12 +30,16 @@ const Settings: FC = () => {
 
   return (
     <div className={styles.settings} data-testid="settings-test-id" ref={ref}>
-      <div className={styles.collapseButton} onClick={changeCollapsedStatus}>
+      <div
+        className={styles.collapseButton}
+        data-testid="collapsed-button-test-id"
+        onClick={changeCollapsedStatus}
+      >
         {t('settings.label')}
       </div>
       {isCollapsed ? (
         <SettingsContext value={{ changeCopyAfterConvert }}>
-          <div className={styles.collapse}>
+          <div className={styles.collapse} data-testid="collapsed-menu-test-id">
             <CollapseCheckbox />
             {settingsState.copyAfterConvert ? <CopyAfterConvert /> : null}
           </div>
