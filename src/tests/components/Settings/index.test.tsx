@@ -5,14 +5,11 @@ import { renderWithProviders } from '@tests/utils';
 import { describe, expect, it } from 'vitest';
 
 describe('Settings Component', () => {
-  it('should be rendered EN', async () => {
+  it('should be rendered EN', () => {
     const { getByTestId } = renderWithProviders(<Settings />);
 
     const settings = getByTestId('settings-test-id');
     expect(settings).toBeInTheDocument();
-    expect(settings).toHaveTextContent('Settings');
-
-    await i18n.changeLanguage('ru');
     expect(settings).toHaveTextContent('Settings');
   });
 

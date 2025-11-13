@@ -22,10 +22,4 @@ interface CardFormatContextProps {
   currentCopiedType: PositionalNumeralSystem | null;
 }
 
-interface SettingsContextProps {
-  changeCopyAfterConvert:
-    | ((numType: PositionalNumeralSystem | null) => void)
-    | null;
-}
-
-export type { ToastContextProps, CardFormatContextProps, SettingsContextProps };
+export type { ToastContextProps, CardFormatContextProps };

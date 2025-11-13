@@ -1,23 +1,17 @@
-import { FC, FormEventHandler, useContext, useMemo } from 'react';
+import { FC, FormEventHandler, useMemo } from 'react';
 
-import { SettingsContext } from '@contexts/Settings';
 import { settingsSelector } from '@store/selectors/settingsSelector';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-const CollapseCheckbox: FC = () => {
+interface CollapseCheckboxProps {
+  onChange: FormEventHandler;
+}
+
+const CollapseCheckbox: FC<CollapseCheckboxProps> = ({ onChange }) => {
   const name = useMemo(() => 'copy-after-convert', []);
-  const { changeCopyAfterConvert } = useContext(SettingsContext);
   const settingsState = useSelector(settingsSelector);
   const { t } = useTranslation();
-
-  const onChange: FormEventHandler = (e) => {
-    const input = e.target;
-    if (!(input instanceof HTMLInputElement) || !changeCopyAfterConvert) return;
-
-    const defaultNumType = 'text';
-    changeCopyAfterConvert(input.checked ? defaultNumType : null);
-  };
 
   return (
     <div onChange={onChange}>

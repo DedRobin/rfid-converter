@@ -1,29 +1,21 @@
 import { FC, MouseEventHandler, useRef, useState } from 'react';
 
-import { SettingsContext } from '@contexts/Settings';
-import { PositionalNumeralSystem } from '@customTypes/App';
 import useClickOutside from '@hooks/useClickOutside';
 import { settingsSelector } from '@store/selectors/settingsSelector';
-import { setCopyAfterConvert } from '@store/slices/settingsSlice';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import CollapseCheckbox from './CollapseCheckbox';
 import CopyAfterConvert from './properties/CopyAfterConvert';
 import styles from './Settings.module.css';
 
 const Settings: FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const settingsState = useSelector(settingsSelector);
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const ref = useRef(null);
 
   const changeCollapsedStatus: MouseEventHandler = () => {
     setIsCollapsed((prev) => !prev);
-  };
-  const changeCopyAfterConvert = (numType: PositionalNumeralSystem | null) => {
-    dispatch(setCopyAfterConvert(numType));
   };
 
   useClickOutside(ref, () => setIsCollapsed(false));
@@ -38,12 +30,9 @@ const Settings: FC = () => {
         {t('settings.label')}
       </div>
       {isCollapsed ? (
-        <SettingsContext value={{ changeCopyAfterConvert }}>
-          <div className={styles.collapse} data-testid="collapsed-menu-test-id">
-            <CollapseCheckbox />
-            {settingsState.copyAfterConvert ? <CopyAfterConvert /> : null}
-          </div>
-        </SettingsContext>
+        <div className={styles.collapse} data-testid="collapsed-menu-test-id">
+          {settingsState.copyAfterConvert ? <CopyAfterConvert /> : null}
+        </div>
       ) : null}
     </div>
   );
