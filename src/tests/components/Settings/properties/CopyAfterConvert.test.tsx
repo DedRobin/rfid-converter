@@ -12,7 +12,6 @@ describe('CopyAfterConvert.test Component', () => {
 
     expect(copyAfterConvert).toBeInTheDocument();
   });
-  it('checkbox is ')
 
   it('should select HEX option', () => {
     const { getByTestId, getByRole } = renderWithProviders(
