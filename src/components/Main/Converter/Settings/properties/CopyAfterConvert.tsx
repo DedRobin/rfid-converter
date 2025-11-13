@@ -13,8 +13,9 @@ import styles from './properties.module.css';
 
 const CopyAfterConvert: FC = () => {
   const name = useMemo(() => 'numeric-type', []);
-  const dispatch = useDispatch();
+
   const settingsState = useSelector(settingsSelector);
+  const dispatch = useDispatch();
 
   const changeCopyAfterConvert = (numType: PositionalNumeralSystem | null) => {
     dispatch(setCopyAfterConvert(numType));
@@ -39,36 +40,38 @@ const CopyAfterConvert: FC = () => {
 
   const numType = settingsState.copyAfterConvert;
   return (
-    <>
+    <div data-testid="copy-after-convert-test-id">
       <CollapseCheckbox onChange={onCheckboxChange} />
-      <div
-        className={styles.radioButtons}
-        data-testid="copy-after-convert-test-id"
-        onChange={onTypeChange}
-      >
-        <Radio
-          checked={numType === 'text'}
-          id="numTypeText"
-          label="TEXT"
-          name={name}
-          value="text"
-        />
-        <Radio
-          checked={numType === 'dex'}
-          id="numTypeDex"
-          label="DEX"
-          name={name}
-          value="dex"
-        />
-        <Radio
-          checked={numType === 'hex'}
-          id="numTypeHex"
-          label="HEX"
-          name={name}
-          value="hex"
-        />
-      </div>
-    </>
+      {settingsState.copyAfterConvert ? (
+        <div
+          className={styles.radioButtons}
+          data-testid="copy-after-convert-radio-buttons-test-id"
+          onChange={onTypeChange}
+        >
+          <Radio
+            checked={numType === 'text'}
+            id="numTypeText"
+            label="TEXT"
+            name={name}
+            value="text"
+          />
+          <Radio
+            checked={numType === 'dex'}
+            id="numTypeDex"
+            label="DEX"
+            name={name}
+            value="dex"
+          />
+          <Radio
+            checked={numType === 'hex'}
+            id="numTypeHex"
+            label="HEX"
+            name={name}
+            value="hex"
+          />
+        </div>
+      ) : null}
+    </div>
   );
 };
 
