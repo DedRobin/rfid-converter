@@ -1,4 +1,4 @@
-import TextValue from '@components/Converter/Output/values/TextValue';
+import TextValue from '@components/Main/Converter/Output/values/TextValue';
 import { fireEvent } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 

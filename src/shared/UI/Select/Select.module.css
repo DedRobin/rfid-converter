@@ -1,12 +1,22 @@
 .select {
-  min-width: 80px;
-  padding: 12px;
-  border-width: var(--inline-border-width);
-  border-radius: var(--inline-border-radius);
-  border-color: var(--inline-border-color);
-  border-style: var(--inline-border-style);
+  --select-svg-stroke: var(--inline-border-color);
+  --select-svg-fill: var(--inline-border-color);
+  --select-border-width: var(--inline-border-width);
+  --select-border-radius: var(--inline-border-radius);
+  --select-border-color: var(--inline-border-color);
+  --select-border-style: var(--inline-border-style);
+  --option-bg-color: rgb(87, 87, 87);
+  --option-border-color: gray;
+
+  border-width: var(--select-border-width);
+  border-radius: var(--select-border-radius);
+  border-color: var(--select-border-color);
+  border-style: var(--select-border-style);
+  padding: 10px;
   cursor: default;
   user-select: none;
+
+  anchor-name: --select-anchor;
 }
 
 .defaultOption {
@@ -19,7 +29,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-top: 1px var(--inline-border-color) solid;
+
+  position: absolute;
+  top: calc(anchor(--select-anchor bottom) + 4px);
+  right: anchor(--select-anchor right);
+  visibility: hidden;
+  padding: 5px;
+  z-index: 10;
+
+  border: 2px gray solid;
+  background-color: var(--option-bg-color);
+
+  &.active {
+    visibility: visible;
+  }
 }
 
 .option {
@@ -30,7 +53,6 @@
 
   &:hover {
     color: black;
-    background-color: var(--inline-border-color);
     cursor: pointer;
   }
 
@@ -46,12 +68,12 @@
   width: 20px;
   height: 20px;
   fill: transparent;
-  stroke: var(--inline-border-color);
+  stroke: var(--select-svg-stroke);
   stroke-width: 2px;
   transition: transform var(--anim-duration), fill var(--anim-duration);
 }
 
 .rotatedSvg {
   transform: rotate(90deg);
-  fill: var(--inline-border-color);
+  fill: var(--select-svg-fill);
 }

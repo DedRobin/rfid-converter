@@ -1,0 +1,28 @@
+.converter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.converterButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.promptWrapper {
+  min-height: 25px;
+}
+
+.prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.exclamationMark {
+  width: 15px;
+  height: 15px;
+  fill: white;
+}

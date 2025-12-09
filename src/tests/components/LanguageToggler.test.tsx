@@ -5,7 +5,7 @@ import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { describe, expect, it } from 'vitest';
 
-import LanguageToggler from '../../components/LanguageToggler/index';
+import LanguageToggler from '../../components/Header/LanguageToggler/index';
 
 describe('LanguageToggler Component', () => {
   it('should render the LanguageToggler component', () => {

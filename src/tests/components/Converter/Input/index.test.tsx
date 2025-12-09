@@ -1,4 +1,4 @@
-import ConverterInput from '@components/Converter/Input';
+import ConverterInput from '@components/Main/Converter/Input';
 import i18n from '@shared/i18n';
 import { fireEvent, render } from '@testing-library/react';
 import { I18nextProvider } from 'react-i18next';

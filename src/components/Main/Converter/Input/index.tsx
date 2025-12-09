@@ -19,6 +19,7 @@ import { valueIsValid } from '../services';
 import CardTypes from './CardTypes';
 import { DEFAULT_TEMPLATES } from './constants';
 import styles from './Input.module.css';
+import Prompt from './Prompt';
 import { handleInput } from './services';
 
 const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
@@ -96,8 +97,9 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
     setInputIsValid(false);
   };
 
-  const onConvertClick: MouseEventHandler<HTMLButtonElement> = () =>
+  const onConvertClick: MouseEventHandler<HTMLButtonElement> = () => {
     convertTo({ value, type });
+  };
 
   const onClearClick: MouseEventHandler<HTMLButtonElement> = () => clearInput();
 
@@ -141,9 +143,10 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
         id="Text"
         onChange={onInputChange}
         placeholder={placeholder}
+        type="text"
         value={value}
       />
-
+      <Prompt msg={inputIsValid ? '' : t('input.prompt')} />
       <div className={styles.converterButtons}>
         <button onClick={onClearClick} type="button">
           X
