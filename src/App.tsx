@@ -10,7 +10,7 @@ import Loader from '@shared/UI/Loader';
 import { RootState } from '@store/index';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { ToastContainer, ToastOptions, toast } from 'react-toastify';
+import { Flip, ToastContainer, ToastOptions, toast } from 'react-toastify';
 
 const App = () => {
   const { language } = useSelector((state: RootState) => state.language);
@@ -20,6 +20,11 @@ const App = () => {
   const notify = (msg: string, type?: NotifyType) => {
     const options: ToastOptions = {
       position: 'bottom-right',
+      theme: 'dark',
+      hideProgressBar: true,
+      autoClose: 3000,
+      closeOnClick: true,
+      transition: Flip,
     };
 
     switch (type) {
