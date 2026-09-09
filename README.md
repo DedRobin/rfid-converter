@@ -34,8 +34,20 @@ The Card Code Converter is a versatile application designed to convert card code
 
 3. **Run the Application**:
    ```bash
-   npm start
+   npm run dev
    ```
+
+   For the Electron desktop app:
+   ```bash
+   npm run dev:electron
+   ```
+
+4. **Package the Desktop App**:
+   ```bash
+   npm run dist
+   ```
+
+   Installers are written to the `release` directory.
 
 ## Usage
 

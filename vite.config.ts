@@ -8,6 +8,11 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
   plugins: [react(), svgr()],
   base: './',
+  server: {
+    host: '127.0.0.1',
+    port: 5173,
+    strictPort: true,
+  },
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, 'src/components'),
