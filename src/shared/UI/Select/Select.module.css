@@ -1,12 +1,12 @@
 .select {
-  --select-svg-stroke: var(--inline-border-color);
-  --select-svg-fill: var(--inline-border-color);
+  --select-svg-stroke: var(--text-muted-color);
+  --select-svg-fill: var(--text-muted-color);
   --select-border-width: var(--inline-border-width);
   --select-border-radius: var(--inline-border-radius);
   --select-border-color: var(--inline-border-color);
   --select-border-style: var(--inline-border-style);
-  --option-bg-color: rgb(87, 87, 87);
-  --option-border-color: gray;
+  --option-bg-color: var(--panel-bg-color);
+  --option-border-color: var(--border-color);
 
   border-width: var(--select-border-width);
   border-radius: var(--select-border-radius);
@@ -37,7 +37,7 @@
   padding: 5px;
   z-index: 10;
 
-  border: 2px gray solid;
+  border: 1px solid var(--option-border-color);
   background-color: var(--option-bg-color);
 
   &.active {
@@ -52,7 +52,7 @@
   transition: background-color var(--anim-duration), color var(--anim-duration);
 
   &:hover {
-    color: black;
+    background-color: var(--btn-bg-color);
     cursor: pointer;
   }
 

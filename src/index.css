@@ -1,29 +1,32 @@
 :root {
-  --bg-root-color: #292a2a;
+  --bg-root-color: #0d1117;
+  --panel-bg-color: #161b22;
+  --border-color: #30363d;
+  --text-color: #e6edf3;
+  --text-muted-color: #8b949e;
+  --accent-color: #238636;
+  --accent-color-hover: #2ea043;
+  --link-color: #58a6ff;
   --anim-duration: 0.2s;
 
-  --inline-border-color: #c99b00;
-  --inline-border-width: 2px;
+  --inline-border-color: var(--border-color);
+  --inline-border-width: 1px;
   --inline-border-style: solid;
-  --inline-border-radius: 8px;
+  --inline-border-radius: 6px;
   --inline-box-shadow: 0px 0px 0px var(--inline-border-color);
-  --inline-box-shadow-active: 0px 0px 8px var(--inline-border-color);
+  --inline-box-shadow-active: 0px 0px 8px rgba(88, 166, 255, 0.55);
 
-  --inline-border-width: 2px;
-  --inline-border-radius: 8px;
-  --inline-border-color: #c99b00;
-  --inline-border-style: solid;
+  --btn-bg-color: #21262d;
+  --btn-border-color-hover: #8b949e;
+  --btn-border-width: 1px;
 
-  --btn-bg-color: #0a4583;
-  --btn-border-color-hover: #5f8fc1;
-  --btn-border-width: 2px;
-
-  font-family: Monda, sans-serif;
+  font-family: -apple-system, 'Segoe UI', 'Noto Sans', Helvetica, Arial,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color-scheme: dark;
+  color: var(--text-color);
   background-color: var(--bg-root-color);
 
   font-synthesis: none;
@@ -34,11 +37,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--link-color);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #79c0ff;
 }
 
 body {
@@ -47,6 +50,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background:
+    radial-gradient(900px 500px at 50% 115%, rgba(121, 92, 246, 0.35), transparent 65%),
+    radial-gradient(1200px 700px at 50% -10%, #1b1f4b, transparent 70%),
+    var(--bg-root-color);
+  background-attachment: fixed;
 }
 
 h1 {
@@ -55,18 +63,22 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: var(--btn-border-width) solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  border-radius: 6px;
+  border: var(--btn-border-width) solid var(--border-color);
+  padding: 0.55em 1.1em;
+  font-size: 0.95em;
+  font-weight: 600;
   font-family: inherit;
+  color: var(--text-color);
   background-color: var(--btn-bg-color);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition:
+    border-color 0.25s,
+    background-color 0.25s;
 
   &:disabled {
     pointer-events: none;
+    opacity: 0.5;
   }
 }
 
@@ -79,17 +91,22 @@ button:focus-visible {
 
 input {
   padding: 12px;
+  color: var(--text-color);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
   border-width: var(--inline-border-width);
   border-style: var(--inline-border-style);
   border-color: var(--inline-border-color);
   border-radius: var(--inline-border-radius);
   box-shadow: var(--inline-box-shadow);
-  background-color: transparent;
-  transition: box-shadow var(--anim-duration);
+  background-color: var(--bg-root-color);
+  transition:
+    box-shadow var(--anim-duration),
+    border-color var(--anim-duration);
 }
-input[type=text]:focus,
-input[type=text]:focus-visible {
+input[type='text']:focus,
+input[type='text']:focus-visible {
   outline: none;
+  border-color: var(--link-color);
   box-shadow: var(--inline-box-shadow-active);
 }
 
@@ -101,17 +118,4 @@ ol {
 
 li {
   list-style: none;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }

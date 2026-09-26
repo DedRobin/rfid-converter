@@ -1,6 +1,7 @@
 .radioButtons {
   display: flex;
   gap: 10px;
+  padding: 10px 14px 12px;
   border-radius: var(--inline-border-radius);
   border-color: var(--inline-border-color);
   border-width: var(--inline-border-width);
@@ -8,4 +9,7 @@
 
 .legend {
   user-select: none;
+  padding: 0 6px;
+  color: var(--text-muted-color);
+  font-size: 0.8em;
 }

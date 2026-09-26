@@ -24,3 +24,4 @@ release
 *.sln
 *.sw?
 .vite
+.qwen/*
