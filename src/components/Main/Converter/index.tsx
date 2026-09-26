@@ -1,8 +1,8 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useCallback, useContext, useState } from 'react';
 
 import ToastContext from '@contexts/Toast';
 import { ConverterHandler } from '@customTypes/App';
-import { settingsSelector } from '@store/selectors/settingsSelector';
+import type { RootState } from '@store/index';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -16,11 +16,11 @@ import Settings from './Settings';
 
 const Converter: FC = () => {
   const [fields, setFields] = useState(defaultFields);
-  const settingsState = useSelector(settingsSelector);
+  const copyAfterConvert = useSelector((state: RootState) => state.settings.copyAfterConvert);
   const { notify } = useContext(ToastContext);
   const { t } = useTranslation();
 
-  const saveAsCsv = () => {
+  const saveAsCsv = useCallback(() => {
     const csvContent = `text,dex,hex\n"${fields.text}","${fields.dex}","${fields.hex}"`;
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
@@ -28,16 +28,16 @@ const Converter: FC = () => {
     a.href = url;
     a.download = 'converter.csv';
     a.click();
-  };
+  }, [fields]);
 
-  const convertTo: ConverterHandler = ({ value, type }) => {
+  const convertTo: ConverterHandler = useCallback(({ value, type }) => {
     const data = { fields, value };
     const updatedFields = updateField(type, data);
 
     setFields(updatedFields);
 
-    if (settingsState.copyAfterConvert) {
-      const numericType = settingsState.copyAfterConvert;
+    if (copyAfterConvert) {
+      const numericType = copyAfterConvert;
       const value = updatedFields[numericType];
 
       copyToClipboard(value)
@@ -48,7 +48,7 @@ const Converter: FC = () => {
           notify(err.message, 'error');
         });
     }
-  };
+  }, [fields, copyAfterConvert, notify, t]);
 
   return (
     <>

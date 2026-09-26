@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import Select from '@shared/UI/Select';
 import { languageSelector } from '@store/selectors/languageToggler';
 import { setLanguage } from '@store/slices/languageTogglerSlice';
@@ -11,12 +13,12 @@ const LanguageToggler = () => {
   const { language } = useSelector(languageSelector);
   const { t } = useTranslation();
 
-  const options = [
+  const options = useMemo(() => [
     { label: t('languageToggler.en'), value: 'en' },
     { label: t('languageToggler.ru'), value: 'ru' },
-  ];
+  ], [t]);
 
-  const defaultOption = options.find((opt) => opt.value === language);
+  const defaultOption = useMemo(() => options.find((opt) => opt.value === language), [options, language]);
 
   const changeLanguage = (value: string | undefined) => {
     if (!value) return;

@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Footer from '@components/Footer';
 import Header from '@components/Header';
@@ -17,7 +17,7 @@ const App = () => {
   const { i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
 
-  const notify = (msg: string, type?: NotifyType) => {
+  const notify = useCallback((msg: string, type?: NotifyType) => {
     const options: ToastOptions = {
       position: 'bottom-right',
       theme: 'dark',
@@ -34,7 +34,9 @@ const App = () => {
       default:
         toast(msg, options);
     }
-  };
+  }, []);
+
+  const toastContextValue = useMemo(() => ({ notify }), [notify]);
 
   useEffect(() => {
     void i18n.changeLanguage(language);
@@ -42,7 +44,7 @@ const App = () => {
   }, [language, i18n]);
 
   return (
-    <ToastContext value={{ notify }}>
+    <ToastContext value={toastContextValue}>
       {isLoading ? (
         <Loader />
       ) : (

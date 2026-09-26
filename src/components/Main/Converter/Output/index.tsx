@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useContext, useRef, useState } from 'react';
+import { FC, MouseEvent, useCallback, useContext, useMemo, useRef, useState } from 'react';
 
 import CardFormatContext from '@contexts/CardFormat';
 import ToastContext from '@contexts/Toast';
@@ -29,7 +29,7 @@ const ConverterOutput: FC<ConverterOutputProps> = ({ text, dex, hex }) => {
   const copyTimerId = useRef<NodeJS.Timeout | null>(null);
   const currentValue = useRef<HTMLDivElement | null>(null);
 
-  const handleCopy = async (
+  const handleCopy = useCallback(async (
     e: MouseEvent<HTMLDivElement>,
     value: string,
     type: PositionalNumeralSystem | null
@@ -63,13 +63,14 @@ const ConverterOutput: FC<ConverterOutputProps> = ({ text, dex, hex }) => {
       notify(t('output.errors.failToCopy'), 'error');
       console.error(err);
     }
-  };
+  }, [notify, t]);
 
-  const cardFormatContextValue = {
+  const cardFormatContextValue = useMemo(() => ({
     handleCopy,
     values: { text, dex, hex },
     currentCopiedType,
-  };
+  }), [handleCopy, text, dex, hex, currentCopiedType]);
+  
   const hasConvertedData = !!(hex && dex && text);
 
   return (

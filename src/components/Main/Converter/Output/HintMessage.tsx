@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 import { HintProps } from '@interfaces/Output';
 import { useTranslation } from 'react-i18next';
@@ -8,9 +8,9 @@ import styles from './Output.module.css';
 const Hint: FC<HintProps> = ({ currentCopiedType, hasConvertedData }) => {
   const { t } = useTranslation();
 
-  const initMsg = t('output.initMsg')
+  const initMsg = useMemo(() => t('output.initMsg')
     .split('.')
-    .map((stringPart, index) => <p key={index}>{stringPart}</p>);
+    .map((stringPart, index) => <p key={index}>{stringPart}</p>), [t]);
 
   if (currentCopiedType) {
     return (
