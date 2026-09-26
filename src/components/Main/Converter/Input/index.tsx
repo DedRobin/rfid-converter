@@ -92,24 +92,24 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
     [convertTo, type, value]
   );
 
-  const clearInput = () => {
+  const clearInput = useCallback(() => {
     setValue('');
     setInputIsValid(false);
-  };
+  }, []);
 
-  const onConvertClick: MouseEventHandler<HTMLButtonElement> = () => {
+  const onConvertClick: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     convertTo({ value, type });
-  };
+  }, [convertTo, value, type]);
 
-  const onClearClick: MouseEventHandler<HTMLButtonElement> = () => clearInput();
+  const onClearClick: MouseEventHandler<HTMLButtonElement> = useCallback(() => clearInput(), [clearInput]);
 
-  const changeType = (currentType: PositionalNumeralSystem) => {
+  const changeType = useCallback((currentType: PositionalNumeralSystem) => {
     setType(currentType);
     setPlaceholder(templates[currentType]);
     clearInput();
-  };
+  }, [templates, clearInput]);
 
-  const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     const current = event.target.value;
 
     setValue((previous) => {
@@ -119,11 +119,12 @@ const ConverterInput: FC<ConverterInputProps> = ({ convertTo, saveAsCsv }) => {
 
       return updatedValue;
     });
-  };
-  const onSaveClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+  }, [type, validateInputValue]);
+  
+  const onSaveClick: MouseEventHandler<HTMLButtonElement> = useCallback((event) => {
     event.preventDefault();
     saveAsCsv();
-  };
+  }, [saveAsCsv]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleCtrlV);
